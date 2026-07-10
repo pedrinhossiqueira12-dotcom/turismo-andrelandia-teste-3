@@ -159,7 +159,15 @@ BOTÕES
 */
 
 function configurarBotoes() {
+    const btnVerMapa =
+    document.getElementById("btnVerMapa");
+    
+    if(btnVerMapa){
 
+    btnVerMapa.href =
+        `../index.html#${localAtual.id}`;
+
+}
     const btnComoChegar =
         document.getElementById("btnComoChegar");
 
