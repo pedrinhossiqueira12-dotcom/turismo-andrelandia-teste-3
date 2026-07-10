@@ -95,7 +95,7 @@ function inicializarMapa() {
     -6
     */
 
-    mapa.setZoom(-6);
+    mapa.setZoom(-20);
 
     mapa.setMaxBounds(bounds);
 
