@@ -8,7 +8,7 @@ MAPA SVG
 const SVG_WIDTH = 84666.66;
 const SVG_HEIGHT = 67733.32;
 
-const MARGEM = 80000;
+const MARGEM = 90000;
 
 const bounds = [
     [-MARGEM, -MARGEM],
