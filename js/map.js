@@ -32,9 +32,30 @@ function inicializarMapa() {
 
         zoomControl: true,
 
-        minZoom: -2,
+        /*
+        ====================================================
+        ALTERE ESTE VALOR PARA CONTROLAR O MÁXIMO
+        DISTANCIAMENTO DA CÂMERA
+        ====================================================
 
-        maxZoom: 200,
+        -2  = pouco afastamento
+        -3  = médio
+        -4  = grande
+        -5  = muito grande
+        -6  = extremamente grande (recomendado)
+        -7  = exagerado
+        */
+
+        minZoom: -15,
+
+        /*
+        ====================================================
+        ALTERE ESTE VALOR PARA CONTROLAR O MÁXIMO
+        DE APROXIMAÇÃO
+        ====================================================
+        */
+
+        maxZoom: 8,
 
         zoomSnap: 0.25,
 
@@ -57,6 +78,24 @@ function inicializarMapa() {
     ).addTo(mapa);
 
     mapa.fitBounds(bounds);
+
+    /*
+    ====================================================
+    ALTERE ESTE VALOR PARA DEFINIR O ZOOM
+    INICIAL DO MAPA
+    ====================================================
+
+    Quanto mais negativo,
+    mais distante o mapa abrirá.
+
+    -2
+    -3
+    -4
+    -5
+    -6
+    */
+
+    mapa.setZoom(-6);
 
     mapa.setMaxBounds(bounds);
 
