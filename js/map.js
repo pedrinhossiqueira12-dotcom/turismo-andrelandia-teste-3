@@ -2,28 +2,93 @@
 ====================================================
 GUIA TURÍSTICO DE ANDRELÂNDIA
 MAPA SVG
+Versão 3.0
+====================================================
+*/
+
+/*
+====================================================
+DIMENSÕES DO SVG
 ====================================================
 */
 
 const SVG_WIDTH = 84666.66;
 const SVG_HEIGHT = 67733.32;
 
-const MARGEM = 90000;
-
-const bounds = [
-    [-MARGEM, -MARGEM],
-    [SVG_HEIGHT + MARGEM, SVG_WIDTH + MARGEM]
-];
-
-let mapa = null;
-let camadaMarcadores = null;
-
 /*
 ====================================================
-INICIALIZAR MAPA
+CONFIGURAÇÕES
 ====================================================
 */
 
+/*
+Zoom inicial.
+
+0      = tamanho real
+-1     = afasta um pouco
+-2     = afasta mais
+-3     = recomendado
+-4     = muito distante
+*/
+
+const ZOOM_INICIAL = -3.5;
+
+/*
+Limite máximo de aproximação.
+*/
+
+const ZOOM_MAXIMO = 8;
+
+/*
+Limite máximo de afastamento.
+*/
+
+const ZOOM_MINIMO = -6;
+
+/*
+Margem invisível ao redor do mapa.
+Serve apenas para deixar a navegação mais agradável.
+*/
+
+const BORDA = 3000;
+
+/*
+====================================================
+LIMITES
+====================================================
+*/
+
+const AREA_MAPA = L.latLngBounds(
+
+    [0, 0],
+
+    [SVG_HEIGHT, SVG_WIDTH]
+
+);
+
+const AREA_NAVEGACAO = L.latLngBounds(
+
+    [-BORDA, -BORDA],
+
+    [
+
+        SVG_HEIGHT + BORDA,
+
+        SVG_WIDTH + BORDA
+
+    ]
+
+);
+
+/*
+====================================================
+VARIÁVEIS
+====================================================
+*/
+
+let mapa = null;
+
+let camadaMarcadores = null;
 /*
 ====================================================
 INICIALIZAR MAPA
@@ -40,15 +105,9 @@ function inicializarMapa() {
 
         zoomControl: true,
 
-        /*
-        Quanto menor, mais longe pode afastar.
-        */
-        minZoom: -6,
+        minZoom: ZOOM_MINIMO,
 
-        /*
-        Quanto maior, mais aproxima.
-        */
-        maxZoom: 8,
+        maxZoom: ZOOM_MAXIMO,
 
         zoomSnap: 0.25,
 
@@ -56,24 +115,17 @@ function inicializarMapa() {
 
         wheelPxPerZoomLevel: 120,
 
-        /*
-        Impede sair muito do mapa.
-        */
-        maxBounds: [
+        maxBounds: AREA_NAVEGACAO,
 
-            [-5000, -5000],
+        maxBoundsViscosity: 1,
 
-            [SVG_HEIGHT + 5000, SVG_WIDTH + 5000]
-
-        ],
-
-        maxBoundsViscosity: 1
+        preferCanvas: true
 
     });
 
     /*
     ====================================================
-    DESENHA O SVG
+    IMAGEM DO MAPA
     ====================================================
     */
 
@@ -81,28 +133,14 @@ function inicializarMapa() {
 
         "img/mapa/mapa.svg",
 
-        [
-
-            [0, 0],
-
-            [SVG_HEIGHT, SVG_WIDTH]
-
-        ]
+        AREA_MAPA
 
     ).addTo(mapa);
 
     /*
     ====================================================
-    ZOOM INICIAL
+    CENTRALIZA O MAPA
     ====================================================
-
-    Altere SOMENTE este valor.
-
-    -2.0
-    -2.5
-    -3.0
-    -3.5
-    -4.0
     */
 
     mapa.setView(
@@ -115,9 +153,17 @@ function inicializarMapa() {
 
         ],
 
-        -3.5
+        ZOOM_INICIAL
 
     );
+
+    /*
+    ====================================================
+    GARANTE QUE O MAPA NÃO FIQUE DESALINHADO
+    ====================================================
+    */
+
+    mapa.setMaxBounds(AREA_NAVEGACAO);
 
     /*
     ====================================================
@@ -132,7 +178,7 @@ function inicializarMapa() {
 }
 /*
 ====================================================
-CARREGAR MARCADORES
+CARREGAR LOCAIS
 ====================================================
 */
 
@@ -144,7 +190,7 @@ async function carregarMarcadores() {
 
         if (!resposta.ok) {
 
-            throw new Error("Não foi possível carregar os locais.");
+            throw new Error("Erro ao carregar locais.");
 
         }
 
@@ -156,33 +202,38 @@ async function carregarMarcadores() {
 
     catch (erro) {
 
-        console.error("Erro ao carregar marcadores:", erro);
+        console.error(erro);
 
     }
 
 }
+
 /*
 ====================================================
 CRIAR MARCADORES
 ====================================================
 */
 
-function criarMarcadores(locais){
+function criarMarcadores(locais) {
 
     camadaMarcadores.clearLayers();
 
-    locais.forEach(local=>{
+    locais.forEach(local => {
 
         /*
-        Se ainda não definiu X e Y,
-        o marcador não é criado.
+        Ignora locais sem coordenadas.
         */
 
-        if(
-            local.x === undefined ||
-            local.y === undefined
-        ){
+        if (
+
+            local.x == null ||
+
+            local.y == null
+
+        ) {
+
             return;
+
         }
 
         const marcador = L.marker(
@@ -197,10 +248,7 @@ function criarMarcadores(locais){
 
             {
 
-                // Marcador padrão do Leaflet
-                // Depois você troca pelos ícones personalizados.
-
-                icon: new L.Icon.Default()
+                icon: obterIcone(local.categoria)
 
             }
 
@@ -212,37 +260,41 @@ function criarMarcadores(locais){
 
             {
 
-                maxWidth:320
+                maxWidth: 320,
+
+                autoPan: true,
+
+                closeButton: true
 
             }
 
         );
 
-        marcador.addTo(
-
-            camadaMarcadores
-
-        );
+        marcador.addTo(camadaMarcadores);
 
     });
 
 }
+
 /*
 ====================================================
 POPUP
 ====================================================
 */
 
-function criarPopup(local){
+function criarPopup(local) {
 
     return `
 
     <div class="popup-card">
 
         <img
+
+            class="popup-capa"
+
             src="${local.capa}"
-            alt="${local.nome}"
-            class="popup-capa">
+
+            alt="${local.nome}">
 
         <h3>
 
@@ -271,6 +323,54 @@ function criarPopup(local){
     `;
 
 }
+
+/*
+====================================================
+ÍCONES
+====================================================
+*/
+
+function obterIcone(categoria) {
+
+    let arquivo = "padrao.png";
+
+    switch (categoria) {
+
+        case "Igreja":
+            arquivo = "igreja.png";
+            break;
+
+        case "Mirante":
+            arquivo = "mirante.png";
+            break;
+
+        case "Natureza":
+            arquivo = "natureza.png";
+            break;
+
+        case "Histórico":
+            arquivo = "historico.png";
+            break;
+
+        case "Estação":
+            arquivo = "estacao.png";
+            break;
+
+    }
+
+    return L.icon({
+
+        iconUrl: `icons/${arquivo}`,
+
+        iconSize: [42, 42],
+
+        iconAnchor: [21, 42],
+
+        popupAnchor: [0, -36]
+
+    });
+
+}
 /*
 ====================================================
 MODO EDIÇÃO
@@ -278,24 +378,33 @@ Clique no mapa para descobrir X e Y
 ====================================================
 */
 
-let modoEdicao = true;
+const MODO_EDICAO = true;
 
 function habilitarModoEdicao() {
 
-    if (!modoEdicao) return;
+    if (!MODO_EDICAO) {
 
-    mapa.on("click", function (e) {
+        return;
+
+    }
+
+    mapa.on("click", function(e) {
 
         const x = Math.round(e.latlng.lng);
+
         const y = Math.round(e.latlng.lat);
 
         console.clear();
 
-        console.log("==============================");
-        console.log("Coordenadas");
+        console.log("================================");
+
+        console.log("COORDENADAS");
+
         console.log("X:", x);
+
         console.log("Y:", y);
-        console.log("==============================");
+
+        console.log("================================");
 
         L.popup()
 
@@ -322,7 +431,7 @@ CENTRALIZAR MAPA
 ====================================================
 */
 
-function centralizarMapa(x, y){
+function centralizarMapa(x, y) {
 
     mapa.flyTo(
 
@@ -334,13 +443,13 @@ function centralizarMapa(x, y){
 
         ],
 
-        mapa.getZoom(),
+        Math.max(mapa.getZoom(), 2),
 
         {
 
-            animate:true,
+            animate: true,
 
-            duration:1.2
+            duration: 1.2
 
         }
 
@@ -354,9 +463,15 @@ DESTACAR LOCAL
 ====================================================
 */
 
-function destacarLocal(local){
+function destacarLocal(local) {
 
-    if(local.x === undefined || local.y === undefined){
+    if (
+
+        local.x == null ||
+
+        local.y == null
+
+    ) {
 
         return;
 
@@ -374,17 +489,6 @@ function destacarLocal(local){
 
 /*
 ====================================================
-ÍCONE PADRÃO
-====================================================
-*/
-
-function obterIcone(){
-
-    return new L.Icon.Default();
-
-}
-/*
-====================================================
 REDIMENSIONAMENTO
 ====================================================
 */
@@ -393,9 +497,9 @@ window.addEventListener(
 
     "resize",
 
-    () => {
+    function() {
 
-        if(mapa){
+        if (mapa) {
 
             mapa.invalidateSize();
 
@@ -415,7 +519,7 @@ document.addEventListener(
 
     "DOMContentLoaded",
 
-    async () => {
+    async function() {
 
         inicializarMapa();
 
