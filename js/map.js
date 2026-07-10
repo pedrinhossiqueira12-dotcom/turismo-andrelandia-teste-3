@@ -32,7 +32,7 @@ function inicializarMapa() {
 
         zoomControl: true,
 
-        minZoom: -2,
+        minZoom: -10,
 
         maxZoom: 8,
 
