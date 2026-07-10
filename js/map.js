@@ -1,40 +1,53 @@
 /*
 ====================================================
-MAPA TURÍSTICO
-Versão SVG + CRS.Simple
+GUIA TURÍSTICO DE ANDRELÂNDIA
+MAPA SVG
+Versão 2.0
 ====================================================
 */
 
-const MAP_WIDTH = 10000;
-const MAP_HEIGHT = 8000;
-
-let mapa;
-let marcadores;
+const SVG_WIDTH = 84666.66;
+const SVG_HEIGHT = 67733.32;
 
 const bounds = [
+
     [0, 0],
-    [MAP_HEIGHT, MAP_WIDTH]
+
+    [SVG_HEIGHT, SVG_WIDTH]
+
 ];
 
-function inicializarMapa() {
+let mapa;
 
-    mapa = L.map("map", {
+let camadaMarcadores;
+
+/*
+====================================================
+INICIALIZAR MAPA
+====================================================
+*/
+
+function inicializarMapa(){
+
+    mapa = L.map("map",{
 
         crs: L.CRS.Simple,
 
-        minZoom: -2,
+        attributionControl:false,
 
-        maxZoom: 3,
+        zoomControl:true,
 
-        zoomSnap: 0.25,
+        minZoom:-3,
 
-        zoomDelta: 0.25,
+        maxZoom:2,
 
-        maxBounds: bounds,
+        zoomSnap:0.25,
 
-        maxBoundsViscosity: 1,
+        zoomDelta:0.25,
 
-        zoomControl: true
+        maxBounds:bounds,
+
+        maxBoundsViscosity:1.0
 
     });
 
@@ -48,12 +61,14 @@ function inicializarMapa() {
 
     mapa.fitBounds(bounds);
 
-    marcadores = L.layerGroup().addTo(mapa);
+    camadaMarcadores = L.layerGroup();
+
+    camadaMarcadores.addTo(mapa);
 
 }
 /*
 ====================================================
-CARREGAR PONTOS TURÍSTICOS
+CARREGAR LOCAIS
 ====================================================
 */
 
@@ -61,19 +76,15 @@ async function carregarLocais() {
 
     try {
 
-        const resposta =
-            await fetch("data/locais.json");
+        const resposta = await fetch("data/locais.json");
 
         if (!resposta.ok) {
 
-            throw new Error(
-                "Erro ao carregar locais."
-            );
+            throw new Error("Não foi possível carregar os locais.");
 
         }
 
-        const locais =
-            await resposta.json();
+        const locais = await resposta.json();
 
         criarMarcadores(locais);
 
@@ -81,7 +92,7 @@ async function carregarLocais() {
 
     catch (erro) {
 
-        console.error(erro);
+        console.error("Erro:", erro);
 
     }
 
@@ -93,84 +104,231 @@ CRIAR MARCADORES
 ====================================================
 */
 
-function criarMarcadores(locais) {
+function criarMarcadores(locais){
 
-    marcadores.clearLayers();
+    camadaMarcadores.clearLayers();
 
     locais.forEach(local => {
 
         const marcador = L.marker(
 
-            [
-                local.y,
-                local.x
-            ]
+    [
 
-        );
+        local.y,
+
+        local.x
+
+    ],
+
+    {
+
+        icon: obterIcone(local.categoria)
+
+    }
+
+);
 
         marcador.bindPopup(
 
-            `
-            <div class="popup">
+            criarPopup(local),
 
-                <h3>${local.nome}</h3>
+            {
 
-                <p>${local.descricao}</p>
+                maxWidth:320
 
-                <a
-                href="pages/local.html?id=${local.id}">
-
-                    Conhecer
-
-                </a>
-
-            </div>
-            `
+            }
 
         );
 
-        marcador.addTo(marcadores);
+        marcador.addTo(camadaMarcadores);
 
     });
 
 }
 /*
 ====================================================
-ÍCONES DOS MARCADORES
+POPUP
 ====================================================
 */
 
-const icones = {
+function criarPopup(local){
 
-    "Igreja": criarIcone("icons/igreja.png"),
+    return `
 
-    "Mirante": criarIcone("icons/mirante.png"),
+        <div class="popup-card">
 
-    "Histórico": criarIcone("icons/monumento.png"),
+            <img
+                src="${local.capa}"
+                alt="${local.nome}"
+                class="popup-capa">
 
-    "Natureza": criarIcone("icons/natureza.png"),
+            <h3>${local.nome}</h3>
 
-    "Estação": criarIcone("icons/estacao.png"),
+            <p>${local.descricao}</p>
 
-    "Museu": criarIcone("icons/museu.png"),
+            <a
+                class="popup-link"
+                href="pages/local.html?id=${local.id}">
 
-    "Restaurante": criarIcone("icons/restaurante.png"),
+                Conhecer
 
-    "default": criarIcone("icons/padrao.png")
+            </a>
 
-};
+        </div>
 
-function criarIcone(caminho){
+    `;
+
+}
+/*
+====================================================
+MODO EDIÇÃO
+Clique no mapa para descobrir X e Y
+====================================================
+*/
+
+let modoEdicao = true;
+
+function habilitarModoEdicao() {
+
+    if (!modoEdicao) return;
+
+    mapa.on("click", function (e) {
+
+        const x = Math.round(e.latlng.lng);
+        const y = Math.round(e.latlng.lat);
+
+        console.clear();
+
+        console.log("--------------------------------");
+        console.log("Coordenadas do mapa");
+        console.log("X:", x);
+        console.log("Y:", y);
+        console.log("--------------------------------");
+
+        L.popup()
+
+            .setLatLng(e.latlng)
+
+            .setContent(
+
+                `
+                <strong>X:</strong> ${x}<br>
+                <strong>Y:</strong> ${y}
+                `
+
+            )
+
+            .openOn(mapa);
+
+    });
+
+}
+/*
+====================================================
+CENTRALIZAR NO LOCAL
+====================================================
+*/
+
+function centralizarMapa(x, y) {
+
+    mapa.flyTo(
+
+        [
+
+            y,
+
+            x
+
+        ],
+
+        0,
+
+        {
+
+            animate: true,
+
+            duration: 1.5
+
+        }
+
+    );
+
+}
+/*
+====================================================
+DESTACAR LOCAL
+====================================================
+*/
+
+function destacarLocal(local){
+
+    centralizarMapa(
+
+        local.x,
+
+        local.y
+
+    );
+
+}
+document.addEventListener(
+
+    "DOMContentLoaded",
+
+    () => {
+
+        inicializarMapa();
+
+        carregarLocais();
+
+        habilitarModoEdicao();
+
+    }
+
+);
+/*
+====================================================
+CRIAR ÍCONE
+====================================================
+*/
+
+function obterIcone(categoria){
+
+    let arquivo = "padrao.png";
+
+    switch(categoria){
+
+        case "Igreja":
+            arquivo = "igreja.png";
+            break;
+
+        case "Mirante":
+            arquivo = "mirante.png";
+            break;
+
+        case "Natureza":
+            arquivo = "natureza.png";
+            break;
+
+        case "Histórico":
+            arquivo = "historico.png";
+            break;
+
+        case "Estação":
+            arquivo = "estacao.png";
+            break;
+
+    }
 
     return L.icon({
 
-        iconUrl: caminho,
+        iconUrl:`icons/${arquivo}`,
 
-        iconSize: [40,40],
+        iconSize:[42,42],
 
-        iconAnchor: [20,40],
+        iconAnchor:[21,42],
 
-        popupAnchor: [0,-35]
+        popupAnchor:[0,-36]
 
     });
 
