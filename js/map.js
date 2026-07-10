@@ -8,9 +8,11 @@ MAPA SVG
 const SVG_WIDTH = 84666.66;
 const SVG_HEIGHT = 67733.32;
 
+const MARGEM = 30000;
+
 const bounds = [
-    [0, 0],
-    [SVG_HEIGHT, SVG_WIDTH]
+    [-MARGEM, -MARGEM],
+    [SVG_HEIGHT + MARGEM, SVG_WIDTH + MARGEM]
 ];
 
 let mapa = null;
@@ -69,14 +71,14 @@ function inicializarMapa() {
 
     });
 
-    L.imageOverlay(
-
-        "img/mapa/mapa.svg",
-
-        bounds
-
-    ).addTo(mapa);
-
+   L.imageOverlay(
+    "img/mapa/mapa.svg",
+    [
+        [0, 0],
+        [SVG_HEIGHT, SVG_WIDTH]
+    ]
+).addTo(mapa);
+    
     mapa.fitBounds(bounds);
 
     /*
