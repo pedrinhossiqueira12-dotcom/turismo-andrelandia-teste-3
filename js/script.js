@@ -98,7 +98,8 @@ function criarCards(lista){
         `
         <img
             src="${local.capa}"
-            alt="${local.nome}">
+            alt="${local.nome}"
+            loading="lazy">
 
         <div class="card-content">
 
@@ -122,8 +123,7 @@ function criarCards(lista){
 
             <a
                 class="card-button"
-
-                href="pages/${local.pagina}?id=${local.id}">
+                href="pages/local.html?id=${local.id}">
 
                 Conhecer
 
@@ -137,6 +137,7 @@ function criarCards(lista){
     });
 
 }
+
 /*
 =========================================================
 PESQUISA EM TEMPO REAL
@@ -149,29 +150,25 @@ function pesquisarLocais(texto){
         .toLowerCase()
         .trim();
 
-    const resultado = locais.filter(local => {
+    const resultado = locais.filter(local =>
 
-        return (
+        local.nome
+            .toLowerCase()
+            .includes(termo)
 
-            local.nome
-                .toLowerCase()
-                .includes(termo)
+        ||
 
-            ||
+        local.categoria
+            .toLowerCase()
+            .includes(termo)
 
-            local.categoria
-                .toLowerCase()
-                .includes(termo)
+        ||
 
-            ||
+        local.descricao
+            .toLowerCase()
+            .includes(termo)
 
-            local.descricao
-                .toLowerCase()
-                .includes(termo)
-
-        );
-
-    });
+    );
 
     criarCards(resultado);
 
@@ -186,14 +183,19 @@ EVENTO DO CAMPO DE PESQUISA
 if(searchInput){
 
     searchInput.addEventListener(
+
         "input",
+
         (evento)=>{
 
             pesquisarLocais(
+
                 evento.target.value
+
             );
 
         }
+
     );
 
 }
@@ -205,10 +207,13 @@ INICIALIZAÇÃO
 */
 
 document.addEventListener(
+
     "DOMContentLoaded",
+
     ()=>{
 
         carregarLocais();
 
     }
+
 );
