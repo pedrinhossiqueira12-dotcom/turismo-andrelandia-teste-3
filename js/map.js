@@ -46,7 +46,7 @@ function inicializarMapa() {
         -7  = exagerado
         */
 
-        minZoom: -7,
+        minZoom: -6,
 
         /*
         ====================================================
