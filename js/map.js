@@ -34,7 +34,7 @@ function inicializarMapa() {
 
         minZoom: -2,
 
-        maxZoom: 20,
+        maxZoom: 200,
 
         zoomSnap: 0.25,
 
