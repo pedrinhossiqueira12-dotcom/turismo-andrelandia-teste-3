@@ -46,7 +46,7 @@ function inicializarMapa() {
         -7  = exagerado
         */
 
-        minZoom: -15,
+        minZoom: -7,
 
         /*
         ====================================================
@@ -95,7 +95,7 @@ function inicializarMapa() {
     -6
     */
 
-    mapa.setZoom(-20);
+    mapa.setZoom(-6);
 
     mapa.setMaxBounds(bounds);
 
