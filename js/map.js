@@ -12,9 +12,8 @@ DIMENSÕES DO SVG
 ====================================================
 */
 
-const SVG_WIDTH = 84666.66;
-const SVG_HEIGHT = 67733.32;
-
+const SVG_WIDTH = 84666.67;
+const SVG_HEIGHT = 67733.33;
 /*
 ====================================================
 CONFIGURAÇÕES
