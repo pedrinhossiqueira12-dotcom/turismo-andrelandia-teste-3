@@ -24,6 +24,12 @@ INICIALIZAR MAPA
 ====================================================
 */
 
+/*
+====================================================
+INICIALIZAR MAPA
+====================================================
+*/
+
 function inicializarMapa() {
 
     mapa = L.map("map", {
@@ -35,28 +41,13 @@ function inicializarMapa() {
         zoomControl: true,
 
         /*
-        ====================================================
-        ALTERE ESTE VALOR PARA CONTROLAR O MÁXIMO
-        DISTANCIAMENTO DA CÂMERA
-        ====================================================
-
-        -2  = pouco afastamento
-        -3  = médio
-        -4  = grande
-        -5  = muito grande
-        -6  = extremamente grande (recomendado)
-        -7  = exagerado
+        Quanto menor, mais longe pode afastar.
         */
-
         minZoom: -6,
 
         /*
-        ====================================================
-        ALTERE ESTE VALOR PARA CONTROLAR O MÁXIMO
-        DE APROXIMAÇÃO
-        ====================================================
+        Quanto maior, mais aproxima.
         */
-
         maxZoom: 8,
 
         zoomSnap: 0.25,
@@ -65,54 +56,74 @@ function inicializarMapa() {
 
         wheelPxPerZoomLevel: 120,
 
-        maxBounds: bounds,
+        /*
+        Impede sair muito do mapa.
+        */
+        maxBounds: [
+
+            [-5000, -5000],
+
+            [SVG_HEIGHT + 5000, SVG_WIDTH + 5000]
+
+        ],
 
         maxBoundsViscosity: 1
 
     });
 
-   L.imageOverlay(
-    "img/mapa/mapa.svg",
-    [
-        [0, 0],
-        [SVG_HEIGHT, SVG_WIDTH]
-    ]
-).addTo(mapa);
-    
-  mapa.setView(
-    [
-        SVG_HEIGHT / 2,
-        SVG_WIDTH / 2
-    ],
-    -3.5
-);
+    /*
+    ====================================================
+    DESENHA O SVG
+    ====================================================
+    */
 
-mapa.setMaxBounds([
-    [0, 0],
-    [SVG_HEIGHT, SVG_WIDTH]
-]);
+    L.imageOverlay(
 
-mapa.options.maxBoundsViscosity = 1.0;
+        "img/mapa/mapa.svg",
+
+        [
+
+            [0, 0],
+
+            [SVG_HEIGHT, SVG_WIDTH]
+
+        ]
+
+    ).addTo(mapa);
 
     /*
     ====================================================
-    ALTERE ESTE VALOR PARA DEFINIR O ZOOM
-    INICIAL DO MAPA
+    ZOOM INICIAL
     ====================================================
 
-    Quanto mais negativo,
-    mais distante o mapa abrirá.
+    Altere SOMENTE este valor.
 
-    -2
-    -3
-    -4
-    -5
-    -6
+    -2.0
+    -2.5
+    -3.0
+    -3.5
+    -4.0
     */
 
-    mapa.setZoom(-6);
+    mapa.setView(
 
-    mapa.setMaxBounds(bounds);
+        [
+
+            SVG_HEIGHT / 2,
+
+            SVG_WIDTH / 2
+
+        ],
+
+        -3.5
+
+    );
+
+    /*
+    ====================================================
+    CAMADA DOS MARCADORES
+    ====================================================
+    */
 
     camadaMarcadores = L.layerGroup();
 
