@@ -79,7 +79,13 @@ function inicializarMapa() {
     ]
 ).addTo(mapa);
     
-    mapa.fitBounds(bounds);
+   mapa.setView(
+    [
+        SVG_HEIGHT / 2,
+        SVG_WIDTH / 2
+    ],
+    -6
+);
 
     /*
     ====================================================
