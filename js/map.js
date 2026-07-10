@@ -2,7 +2,6 @@
 ====================================================
 GUIA TURÍSTICO DE ANDRELÂNDIA
 MAPA SVG
-Versão 2.0
 ====================================================
 */
 
@@ -10,16 +9,12 @@ const SVG_WIDTH = 84666.66;
 const SVG_HEIGHT = 67733.32;
 
 const bounds = [
-
     [0, 0],
-
     [SVG_HEIGHT, SVG_WIDTH]
-
 ];
 
-let mapa;
-
-let camadaMarcadores;
+let mapa = null;
+let camadaMarcadores = null;
 
 /*
 ====================================================
@@ -27,27 +22,29 @@ INICIALIZAR MAPA
 ====================================================
 */
 
-function inicializarMapa(){
+function inicializarMapa() {
 
-    mapa = L.map("map",{
+    mapa = L.map("map", {
 
         crs: L.CRS.Simple,
 
-        attributionControl:false,
+        attributionControl: false,
 
-        zoomControl:true,
+        zoomControl: true,
 
-        minZoom:-3,
+        minZoom: -2,
 
-        maxZoom:2,
+        maxZoom: 8,
 
-        zoomSnap:0.25,
+        zoomSnap: 0.25,
 
-        zoomDelta:0.25,
+        zoomDelta: 0.25,
 
-        maxBounds:bounds,
+        wheelPxPerZoomLevel: 120,
 
-        maxBoundsViscosity:1.0
+        maxBounds: bounds,
+
+        maxBoundsViscosity: 1
 
     });
 
@@ -61,6 +58,8 @@ function inicializarMapa(){
 
     mapa.fitBounds(bounds);
 
+    mapa.setMaxBounds(bounds);
+
     camadaMarcadores = L.layerGroup();
 
     camadaMarcadores.addTo(mapa);
@@ -68,11 +67,11 @@ function inicializarMapa(){
 }
 /*
 ====================================================
-CARREGAR LOCAIS
+CARREGAR MARCADORES
 ====================================================
 */
 
-async function carregarLocais() {
+async function carregarMarcadores() {
 
     try {
 
@@ -92,12 +91,11 @@ async function carregarLocais() {
 
     catch (erro) {
 
-        console.error("Erro:", erro);
+        console.error("Erro ao carregar marcadores:", erro);
 
     }
 
 }
-
 /*
 ====================================================
 CRIAR MARCADORES
@@ -108,25 +106,40 @@ function criarMarcadores(locais){
 
     camadaMarcadores.clearLayers();
 
-    locais.forEach(local => {
+    locais.forEach(local=>{
+
+        /*
+        Se ainda não definiu X e Y,
+        o marcador não é criado.
+        */
+
+        if(
+            local.x === undefined ||
+            local.y === undefined
+        ){
+            return;
+        }
 
         const marcador = L.marker(
 
-    [
+            [
 
-        local.y,
+                local.y,
 
-        local.x
+                local.x
 
-    ],
+            ],
 
-    {
+            {
 
-        icon: obterIcone(local.categoria)
+                // Marcador padrão do Leaflet
+                // Depois você troca pelos ícones personalizados.
 
-    }
+                icon: new L.Icon.Default()
 
-);
+            }
+
+        );
 
         marcador.bindPopup(
 
@@ -140,7 +153,11 @@ function criarMarcadores(locais){
 
         );
 
-        marcador.addTo(camadaMarcadores);
+        marcador.addTo(
+
+            camadaMarcadores
+
+        );
 
     });
 
@@ -155,26 +172,36 @@ function criarPopup(local){
 
     return `
 
-        <div class="popup-card">
+    <div class="popup-card">
 
-            <img
-                src="${local.capa}"
-                alt="${local.nome}"
-                class="popup-capa">
+        <img
+            src="${local.capa}"
+            alt="${local.nome}"
+            class="popup-capa">
 
-            <h3>${local.nome}</h3>
+        <h3>
 
-            <p>${local.descricao}</p>
+            ${local.nome}
 
-            <a
-                class="popup-link"
-                href="pages/local.html?id=${local.id}">
+        </h3>
 
-                Conhecer
+        <p>
 
-            </a>
+            ${local.descricao}
 
-        </div>
+        </p>
+
+        <a
+
+            class="popup-link"
+
+            href="pages/local.html?id=${local.id}">
+
+            Conhecer
+
+        </a>
+
+    </div>
 
     `;
 
@@ -199,11 +226,11 @@ function habilitarModoEdicao() {
 
         console.clear();
 
-        console.log("--------------------------------");
-        console.log("Coordenadas do mapa");
+        console.log("==============================");
+        console.log("Coordenadas");
         console.log("X:", x);
         console.log("Y:", y);
-        console.log("--------------------------------");
+        console.log("==============================");
 
         L.popup()
 
@@ -223,13 +250,14 @@ function habilitarModoEdicao() {
     });
 
 }
+
 /*
 ====================================================
-CENTRALIZAR NO LOCAL
+CENTRALIZAR MAPA
 ====================================================
 */
 
-function centralizarMapa(x, y) {
+function centralizarMapa(x, y){
 
     mapa.flyTo(
 
@@ -241,19 +269,20 @@ function centralizarMapa(x, y) {
 
         ],
 
-        0,
+        mapa.getZoom(),
 
         {
 
-            animate: true,
+            animate:true,
 
-            duration: 1.5
+            duration:1.2
 
         }
 
     );
 
 }
+
 /*
 ====================================================
 DESTACAR LOCAL
@@ -261,6 +290,12 @@ DESTACAR LOCAL
 */
 
 function destacarLocal(local){
+
+    if(local.x === undefined || local.y === undefined){
+
+        return;
+
+    }
 
     centralizarMapa(
 
@@ -271,65 +306,58 @@ function destacarLocal(local){
     );
 
 }
+
+/*
+====================================================
+ÍCONE PADRÃO
+====================================================
+*/
+
+function obterIcone(){
+
+    return new L.Icon.Default();
+
+}
+/*
+====================================================
+REDIMENSIONAMENTO
+====================================================
+*/
+
+window.addEventListener(
+
+    "resize",
+
+    () => {
+
+        if(mapa){
+
+            mapa.invalidateSize();
+
+        }
+
+    }
+
+);
+
+/*
+====================================================
+INICIALIZAÇÃO
+====================================================
+*/
+
 document.addEventListener(
 
     "DOMContentLoaded",
 
-    () => {
+    async () => {
 
         inicializarMapa();
 
-        carregarLocais();
+        await carregarMarcadores();
 
         habilitarModoEdicao();
 
     }
 
 );
-/*
-====================================================
-CRIAR ÍCONE
-====================================================
-*/
-
-function obterIcone(categoria){
-
-    let arquivo = "padrao.png";
-
-    switch(categoria){
-
-        case "Igreja":
-            arquivo = "igreja.png";
-            break;
-
-        case "Mirante":
-            arquivo = "mirante.png";
-            break;
-
-        case "Natureza":
-            arquivo = "natureza.png";
-            break;
-
-        case "Histórico":
-            arquivo = "historico.png";
-            break;
-
-        case "Estação":
-            arquivo = "estacao.png";
-            break;
-
-    }
-
-    return L.icon({
-
-        iconUrl:`icons/${arquivo}`,
-
-        iconSize:[42,42],
-
-        iconAnchor:[21,42],
-
-        popupAnchor:[0,-36]
-
-    });
-
-}
