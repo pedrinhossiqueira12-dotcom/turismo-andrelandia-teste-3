@@ -32,9 +32,9 @@ function inicializarMapa() {
 
         zoomControl: true,
 
-        minZoom: -10,
+        minZoom: -2,
 
-        maxZoom: 8,
+        maxZoom: 20,
 
         zoomSnap: 0.25,
 
