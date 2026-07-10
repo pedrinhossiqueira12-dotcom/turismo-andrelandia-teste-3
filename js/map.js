@@ -79,13 +79,20 @@ function inicializarMapa() {
     ]
 ).addTo(mapa);
     
-   mapa.setView(
+  mapa.setView(
     [
         SVG_HEIGHT / 2,
         SVG_WIDTH / 2
     ],
-    -6
+    -3.5
 );
+
+mapa.setMaxBounds([
+    [0, 0],
+    [SVG_HEIGHT, SVG_WIDTH]
+]);
+
+mapa.options.maxBoundsViscosity = 1.0;
 
     /*
     ====================================================
