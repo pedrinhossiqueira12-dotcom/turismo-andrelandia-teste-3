@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Guia Turístico de Andrelândia</title>
+
+    <meta name="description"
+          content="Conheça os principais pontos turísticos de Andrelândia MG.">
+
+    <meta name="theme-color"
+          content="#0f172a">
+
+    <meta name="apple-mobile-web-app-capable"
+          content="yes">
+
+    <meta name="apple-mobile-web-app-status-bar-style"
+          content="black-translucent">
+
+    <meta name="apple-mobile-web-app-title"
+          content="Guia Andrelândia">
+
+    <link rel="manifest"
+          href="manifest.json">
+
+    <link rel="icon"
+          href="icons/icon-192.png">
+
+    <link rel="apple-touch-icon"
+          href="icons/icon-192.png">
+
+    <!-- Leaflet -->
+
+    <link rel="stylesheet"
+          href="https://unpkg.com/leaflet/dist/leaflet.css">
+
+    <!-- CSS principal -->
+
+    <link rel="stylesheet"
+          href="style.css">
+
+</head>
+
+<body>
+
+<header class="hero">
+
+    <div class="hero-overlay">
+
+        <nav class="navbar">
+
+            <div class="logo">
+
+                Guia Turístico
+
+            </div>
+
+            <ul class="menu">
+
+                <li>
+                    <a href="#locais">
+                        Locais
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#mapa">
+                        Mapa
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#destaques">
+                        Destaques
+                    </a>
+                </li>
+
+            </ul>
+
+        </nav>
+
+        <div class="hero-content">
+
+            <h1>
+
+                Descubra
+                <span>Andrelândia</span>
+
+            </h1>
+
+            <p>
+
+                História,
+                cultura,
+                natureza
+                e experiências
+                inesquecíveis.
+
+            </p>
+
+            <div class="search-box">
+
+                <input
+                    type="text"
+                    id="searchInput"
+                    placeholder="Pesquisar um ponto turístico...">
+
+            </div>
+
+        </div>
+
+    </div>
+
+</header>
+
+<main>
+
+<section
+id="locais"
+class="section">
+
+    <div class="section-title">
+
+        <h2>
+
+            Pontos Turísticos
+
+        </h2>
+
+        <p>
+
+            Explore os principais atrativos da cidade.
+
+        </p>
+
+    </div>
+
+    <div
+        id="cardsContainer"
+        class="cards-grid">
+
+        <!-- Cards criados via JavaScript -->
+
+    </div>
+
+</section>
+
+<section
+id="mapa"
+class="section">
+
+    <div class="section-title">
+
+        <h2>
+
+            Mapa Interativo
+
+        </h2>
+
+        <p>
+
+            Localize facilmente cada atração.
+
+        </p>
+
+    </div>
+
+    <div
+        id="map">
+
+    </div>
+
+</section>
+
+<section
+id="destaques"
+class="section">
+
+    <div class="section-title">
+
+        <h2>
+
+            Destaques de Andrelândia
+
+        </h2>
+
+    </div>
+
+    <div class="highlights">
+              <div class="highlight-card">
+
+            <div class="highlight-icon">
+                🏛️
+            </div>
+
+            <h3>
+                Patrimônio Histórico
+            </h3>
+
+            <p>
+                Igrejas, casarões e monumentos preservam a história e a
+                identidade cultural de Andrelândia.
+            </p>
+
+        </div>
+
+        <div class="highlight-card">
+
+            <div class="highlight-icon">
+                🌄
+            </div>
+
+            <h3>
+                Natureza
+            </h3>
+
+            <p>
+                Mirantes, paisagens e trilhas oferecem belas vistas da região
+                e contato com a natureza.
+            </p>
+
+        </div>
+
+        <div class="highlight-card">
+
+            <div class="highlight-icon">
+                📷
+            </div>
+
+            <h3>
+                Fotografia
+            </h3>
+
+            <p>
+                Descubra cenários perfeitos para registrar momentos e conhecer
+                a cidade por novos ângulos.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+</main>
+
+<footer class="footer">
+
+    <div class="footer-content">
+
+        <h3>
+            Guia Turístico de Andrelândia
+        </h3>
+
+        <p>
+            Explore os principais pontos turísticos da cidade através de um
+            mapa interativo, informações históricas e galerias de imagens.
+        </p>
+
+        <p class="copyright">
+
+            © 2026 Guia Turístico de Andrelândia.
+            Todos os direitos reservados.
+
+        </p>
+
+    </div>
+
+</footer>
+
+<script
+src="https://unpkg.com/leaflet/dist/leaflet.js">
+</script>
+
+<script
+src="js/script.js">
+</script>
+
+<script
+src="js/map.js">
+</script>
+
+<script>
+
+if ("serviceWorker" in navigator) {
+
+    window.addEventListener("load", () => {
+
+        navigator.serviceWorker.register("service-worker.js");
+
+    });
+
+}
+
+</script>
+
+</body>
+
+</html>
