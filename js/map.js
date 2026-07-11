@@ -350,6 +350,10 @@ function obterIcone(categoria) {
        case "Igreja":  
             arquivo = "igreja.png";
             break;
+        
+        case "Igreja2":  
+            arquivo = "igreja2.png";
+            break;
             
        
         case "Natureza":
