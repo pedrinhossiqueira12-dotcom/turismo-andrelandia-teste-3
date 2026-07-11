@@ -709,14 +709,3 @@ body{
     background:#0b3d67;
 
 }
-.item-local {
-    display: flex;
-    align-items: center; /* Alinha imagem e texto na mesma linha */
-    gap: 10px; /* Espaço entre a imagem e o texto */
-}
-
-.icone-local {
-    width: 38px;   /* Altere o tamanho aqui */
-    height:50px;  /* Ou use auto se preferir */
-    object-fit: contain;
-}
