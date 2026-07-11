@@ -371,6 +371,12 @@ function obterIcone(categoria) {
         case "Pedra":
             arquivo = "Pedra.png";
             break;
+            
+        case "esporte":
+            arquivo = "esporte.png";
+            break;
+
+
 
     }
 
