@@ -341,26 +341,31 @@ function obterIcone(categoria) {
 
     switch (categoria) {
 
-        case "Igreja":
+        
         case "Histórico":
         case "Estação":
-            arquivo = "marker-vermelho.png";
+            arquivo = "casarao.png";
             break;
 
+       case "Igreja":  
+            arquivo = "igreja.png";
+            break;
+            
+       
         case "Natureza":
-            arquivo = "marker-verde.png";
+            arquivo = "cachoeira.png";
             break;
 
         case "Mirante":
-            arquivo = "marker-amarelo.png";
+            arquivo = "cristo.png";
             break;
 
         case "Cafeteria":
-            arquivo = "marker-azul.png";
+            arquivo = "cafe.png";
             break;
 
         case "Restaurante":
-            arquivo = "marker-laranja.png";
+            arquivo = "lanche.png";
             break;
 
         case "Pedra":
