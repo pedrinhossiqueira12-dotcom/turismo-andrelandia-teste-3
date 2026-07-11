@@ -716,7 +716,7 @@ body{
 }
 
 .icone-local {
-    width: 40px;   /* Altere o tamanho aqui */
-    height: 40px;  /* Ou use auto se preferir */
+    width: 10px;   /* Altere o tamanho aqui */
+    height:10px;  /* Ou use auto se preferir */
     object-fit: contain;
 }
