@@ -51,7 +51,7 @@
     "x": 52456,
     "y": 35315,
     "latitude": -21.737550,
-    "longitude": -44.304573
+    "longitude": -44.304573,
     "endereco": "Rua José Andrade Godinho, Rosário, Andrelândia – MG",
     "tempoVisita": "",
     "capa": "./img/igreja-rosario/capa.png",
@@ -72,7 +72,7 @@
     "x": 56292,
     "y": 38329,
     "latitude": -21.735124,
-    "longitude": -44.301019
+    "longitude": -44.301019,
     "endereco": "",
     "tempoVisita": "",
     "capa": "./img/mirante-cristo/capa.png",
@@ -93,7 +93,7 @@
     "x": 55500,
     "y":  24435,
     "latitude": -21.747018,
-    "longitude": -44.301955
+    "longitude": -44.301955,
     "endereco": "",
     "tempoVisita": "",
     "capa": "img/pedra-do-indio/capa.png",
@@ -114,7 +114,7 @@
     "x": 46290,
     "y": 35498,
     "latitude": -21.737266,
-    "longitude": -44.310517
+    "longitude": -44.310517,
     "endereco": "",
     "tempoVisita": "",
     "capa": "./img/estacao-ferroviaria/capa.png",
@@ -135,7 +135,7 @@
     "x": 48712,
     "y": 32475,
     "latitude": -21.739990,
-    "longitude": -44.308229
+    "longitude": -44.308229,
     "endereco": "",
     "tempoVisita": "",
     "capa": "./img/casarao-fundacao-guaira/capa.png",
