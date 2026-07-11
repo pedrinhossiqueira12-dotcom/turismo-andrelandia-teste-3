@@ -12,7 +12,7 @@
     "longitude": 0,
     "endereco": "",
     "tempoVisita": "",
-    "capa": "./img/igreja-matriz/capa.jpg",
+    "capa": "./img/igreja-matriz/capa.png",
     "galeria": [
       "./img/igreja-matriz/1.jpg",
       "./img/igreja-matriz/2.jpg",
@@ -33,7 +33,7 @@
     "longitude": 0,
     "endereco": "",
     "tempoVisita": "",
-    "capa": "./img/capela-sao-benedito/capa.jpg",
+    "capa": "./img/capela-sao-benedito/capa.png",
     "galeria": [
       "./img/capela-sao-benedito/1.jpg",
       "./img/capela-sao-benedito/2.jpg",
@@ -54,7 +54,7 @@
     "longitude": 0,
     "endereco": "",
     "tempoVisita": "",
-    "capa": "./img/igreja-rosario/capa.jpg",
+    "capa": "./img/igreja-rosario/capa.png",
     "galeria": [
       "./img/igreja-rosario/1.jpg",
       "./img/igreja-rosario/2.jpg",
@@ -75,7 +75,7 @@
     "longitude": 0,
     "endereco": "",
     "tempoVisita": "",
-    "capa": "./img/mirante-cristo/capa.jpg",
+    "capa": "./img/mirante-cristo/capa.png",
     "galeria": [
       "./img/mirante-cristo/1.jpg",
       "./img/mirante-cristo/2.jpg",
@@ -96,7 +96,7 @@
     "longitude": 0,
     "endereco": "",
     "tempoVisita": "",
-    "capa": "img/pedra-do-indio/capa.jpg",
+    "capa": "img/pedra-do-indio/capa.png",
     "galeria": [
       "./img/pedra-do-indio/1.jpg",
       "./img/pedra-do-indio/2.jpg",
@@ -117,7 +117,7 @@
     "longitude": 0,
     "endereco": "",
     "tempoVisita": "",
-    "capa": "./img/estacao-ferroviaria/capa.jpg",
+    "capa": "./img/estacao-ferroviaria/capa.png",
     "galeria": [
       "./img/estacao-ferroviaria/1.jpg",
       "./img/estacao-ferroviaria/2.jpg",
@@ -138,11 +138,74 @@
     "longitude": 0,
     "endereco": "",
     "tempoVisita": "",
-    "capa": "./img/casarao-fundacao-guaira/capa.jpg",
+    "capa": "./img/casarao-fundacao-guaira/capa.png",
     "galeria": [
       "./img/casarao-fundacao-guaira/1.jpg",
       "./img/casarao-fundacao-guaira/2.jpg",
       "./img/casarao-fundacao-guaira/3.jpg"
+    ],
+    "pagina": "local.html"
+  },
+   {
+    "id": "serra-santo-antonio",
+    "nome": "Serra Santo Antônio",
+    "categoria": "natureza",
+    "descricao": "",
+    "historia": "",
+    "curiosidades": "",
+    "x": 0,
+    "y": 0,
+    "latitude": 0,
+    "longitude": 0,
+    "endereco": "",
+    "tempoVisita": "",
+    "capa": "./img/serra-santo-antonio/capa.png",
+    "galeria": [
+      "./img/serra-santo-antonio/1.jpg",
+      "./img/serra-santo-antonio/2.jpg",
+      "./img/serra-santo-antonio/3.jpg"
+    ],
+    "pagina": "local.html"
+  },
+     {
+    "id": "complexo-esportivo",
+    "nome": "Complexo Esportivo",
+    "categoria": "esporte",
+    "descricao": "",
+    "historia": "",
+    "curiosidades": "",
+    "x": 30468,
+    "y": 23555,
+    "latitude": 0,
+    "longitude": 0,
+    "endereco": "",
+    "tempoVisita": "",
+    "capa": "./img/complexo-esportivoo/capa.png",
+    "galeria": [
+      "./img/complexo-esportivo/1.jpg",
+      "./img/complexo-esportivo/2.jpg",
+      "./img/complexo-esportivo/3.jpg"
+    ],
+    "pagina": "local.html"
+  },
+       {
+    "id": "sobrado-dos-pinheiros",
+    "nome": "Sobrado dos Pinheiros",
+    "categoria": "Histórico",
+    "descricao": "",
+    "historia": "",
+    "curiosidades": "",
+    "x": 48164,
+    "y": 32116,
+    "latitude": 0,
+    "longitude": 0,
+    "endereco": "",
+    "tempoVisita": "",
+    "capa": "./img/complexo-esportivoo/capa.png",
+    "galeria": [
+      "./img/complexo-esportivo/1.jpg",
+      "./img/complexo-esportivo/2.jpg",
+      "./img/complexo-esportivo/3.jpg"
     ],
     "pagina": "local.html"
   },
@@ -159,7 +222,7 @@
     "longitude": 0,
     "endereco": "",
     "tempoVisita": "",
-    "capa": "./img/parque-arqueologico/capa.jpg",
+    "capa": "./img/parque-arqueologico/capa.png",
     "galeria": [
       "./img/parque-arqueologico/1.jpg",
       "./img/parque-arqueologico/2.jpg",
