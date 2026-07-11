@@ -329,30 +329,42 @@ function criarPopup(local) {
 ====================================================
 */
 
+/*
+====================================================
+ÍCONES
+====================================================
+*/
+
 function obterIcone(categoria) {
 
-    let arquivo = "padrao.png";
+    let arquivo = "marker-cinza.png";
 
     switch (categoria) {
 
         case "Igreja":
-            arquivo = "igreja.png";
-            break;
-
-        case "Mirante":
-            arquivo = "mirante.png";
+        case "Histórico":
+        case "Estação":
+            arquivo = "marker-vermelho.png";
             break;
 
         case "Natureza":
-            arquivo = "natureza.png";
+            arquivo = "marker-verde.png";
             break;
 
-        case "Histórico":
-            arquivo = "historico.png";
+        case "Mirante":
+            arquivo = "marker-amarelo.png";
             break;
 
-        case "Estação":
-            arquivo = "estacao.png";
+        case "Cafeteria":
+            arquivo = "marker-azul.png";
+            break;
+
+        case "Restaurante":
+            arquivo = "marker-laranja.png";
+            break;
+
+        case "Museu":
+            arquivo = "marker-roxo.png";
             break;
 
     }
@@ -361,11 +373,11 @@ function obterIcone(categoria) {
 
         iconUrl: `icons/${arquivo}`,
 
-        iconSize: [42, 42],
+        iconSize: [38, 50],
 
-        iconAnchor: [21, 42],
+        iconAnchor: [19, 50],
 
-        popupAnchor: [0, -36]
+        popupAnchor: [0, -45]
 
     });
 
