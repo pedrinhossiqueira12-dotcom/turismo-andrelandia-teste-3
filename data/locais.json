@@ -201,11 +201,11 @@
     "longitude": 0,
     "endereco": "",
     "tempoVisita": "",
-    "capa": "./img/complexo-esportivoo/capa.png",
+    "capa": "./img/sobrado-dos-pinheiros/capa.png",
     "galeria": [
-      "./img/complexo-esportivo/1.jpg",
-      "./img/complexo-esportivo/2.jpg",
-      "./img/complexo-esportivo/3.jpg"
+      "./img/sobrado-dos-pinheiros/1.jpg",
+      "./img/sobrado-dos-pinheiros/2.jpg",
+      "./img/sobrado-dos-pinheiros/3.jpg"
     ],
     "pagina": "local.html"
   },
