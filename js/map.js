@@ -363,8 +363,8 @@ function obterIcone(categoria) {
             arquivo = "marker-laranja.png";
             break;
 
-        case "Museu":
-            arquivo = "marker-roxo.png";
+        case "Pedra":
+            arquivo = "Pedra.png";
             break;
 
     }
