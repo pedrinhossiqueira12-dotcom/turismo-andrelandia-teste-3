@@ -130,13 +130,15 @@ function inicializarMapa() {
         16
     );
 
-    L.tileLayer(
-        "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-        {
-            attribution: "&copy; OpenStreetMap",
-            maxZoom: 20
-        }
-    ).addTo(mapaLocal);
+L.tileLayer(
+
+    "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+
+    {
+        attribution: "&copy; Esri"
+    }
+
+).addTo(mapaLocal);
 
     L.marker(
         [
