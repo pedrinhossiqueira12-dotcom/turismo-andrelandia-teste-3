@@ -373,7 +373,7 @@ function obterIcone(categoria) {
 
         iconUrl: `icons/${arquivo}`,
 
-        iconSize: [28, 40],
+        iconSize: [38, 40],
 
         iconAnchor: [19, 50],
 
