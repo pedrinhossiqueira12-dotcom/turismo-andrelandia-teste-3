@@ -107,11 +107,91 @@ function preencherPagina() {
     document.getElementById("curiosidades").textContent =
         localAtual.curiosidades;
 
-    document.getElementById("tempoVisita").textContent =
-        localAtual.tempoVisita;
-
     document.getElementById("endereco").textContent =
         localAtual.endereco;
+/*
+==============================================
+NOVOS CAMPOS
+==============================================
+*/
+
+preencherCampo(
+    "horario",
+    localAtual.horario
+);
+
+preencherCampo(
+    "entrada",
+    localAtual.entrada
+);
+
+preencherCampo(
+    "telefone",
+    localAtual.telefone,
+    "telefoneCard"
+);
+
+preencherCampo(
+    "site",
+    localAtual.site,
+    "siteCard"
+);
+
+preencherCampo(
+    "instagram",
+    localAtual.instagram,
+    "instagramCard"
+);
+}
+/*
+=========================================================
+PREENCHER CAMPO
+=========================================================
+*/
+
+function preencherCampo(
+    idCampo,
+    valor,
+    idCard = null
+){
+
+    const campo =
+        document.getElementById(idCampo);
+
+    if(!campo){
+
+        return;
+
+    }
+
+    if(
+        valor &&
+        valor.trim() !== ""
+    ){
+
+        campo.textContent = valor;
+
+    }
+
+    else{
+
+        if(idCard){
+
+            document
+                .getElementById(idCard)
+                .style.display = "none";
+
+        }
+
+        else{
+
+            campo
+                .parentElement
+                .style.display = "none";
+
+        }
+
+    }
 
 }
 /*
@@ -175,6 +255,51 @@ function configurarBotoes() {
 
     btnComoChegar.href =
         `https://www.google.com/maps/search/?api=1&query=${localAtual.latitude},${localAtual.longitude}`;
+    /*
+==============================================
+SITE
+==============================================
+*/
+
+const btnSite =
+document.getElementById("btnSite");
+
+if(localAtual.site){
+
+    btnSite.href =
+        localAtual.site;
+
+}
+
+else{
+
+    btnSite.style.display =
+        "none";
+
+}
+
+/*
+==============================================
+INSTAGRAM
+==============================================
+*/
+
+const btnInstagram =
+document.getElementById("btnInstagram");
+
+if(localAtual.instagram){
+
+    btnInstagram.href =
+        localAtual.instagram;
+
+}
+
+else{
+
+    btnInstagram.style.display =
+        "none";
+
+}
 
     document
         .getElementById("btnVoltar")
