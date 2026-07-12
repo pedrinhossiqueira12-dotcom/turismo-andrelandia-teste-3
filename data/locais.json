@@ -86,7 +86,7 @@
   {
     "id": "pedra-do-indio",
     "nome": "Pedra do Índio",
-    "categoria": "Pedra",
+    "categoria": "Natureza",
     "descricao": "",
     "historia": "",
     "curiosidades": "",
@@ -149,7 +149,7 @@
    {
     "id": "serra-santo-antonio",
     "nome": "Serra Santo Antônio",
-    "categoria": "natureza",
+    "categoria": "Natureza",
     "descricao": "",
     "historia": "",
     "curiosidades": "",
