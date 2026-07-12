@@ -184,6 +184,10 @@ body{
 
 .search-box input{
 
+   transition:
+    box-shadow .25s,
+    transform .25s;
+
     width:100%;
 
     padding:18px 22px;
@@ -200,6 +204,14 @@ body{
 
     0 12px 30px
     rgba(0,0,0,.25);
+
+}
+.search-box input:focus{
+
+    transform:translateY(-2px);
+
+    box-shadow:
+    0 15px 35px rgba(56,189,248,.30);
 
 }
 
@@ -355,7 +367,9 @@ body{
 
     border-radius:10px;
 
-    transition:background .25s;
+    transition:
+    background .25s,
+    transform .25s;
    
     margin-top:20px;
 
@@ -365,8 +379,9 @@ body{
 
     background:#1e293b;
 
-}
+    transform:translateY(-2px);
 
+}
 /* =====================================================
    MAPA
 ===================================================== */
@@ -716,77 +731,7 @@ body{
     background:#0b3d67;
 
 }
-.lista{
-    text-align: left;
-}
-/* ======================================================
-   NOVAS SEÇÕES - V2.0
-====================================================== */
 
-.section-title{
-    text-align:center;
-    margin-bottom:45px;
-}
-
-.section-title h2{
-
-    font-size:2.2rem;
-
-    color:var(--cor-principal);
-
-    margin-bottom:12px;
-}
-
-.section-title p{
-
-    max-width:700px;
-
-    margin:auto;
-
-    color:#666;
-
-    line-height:1.7;
-}
-
-/* ======================================================
-   CARDS V2
-====================================================== */
-
-.card:hover{
-
-    transform:translateY(-6px);
-
-}
-
-.card img{
-
-    width:100%;
-
-    aspect-ratio:16/10;
-
-    object-fit:cover;
-
-}
-
-.card-body{
-
-    padding:20px;
-
-}
-
-.card-title{
-
-    font-size:1.3rem;
-
-    margin-bottom:12px;
-
-}
-
-.card-description{
-
-    line-height:1.7;
-
-}
 #comercios{
 
     background:#faf8f3;
