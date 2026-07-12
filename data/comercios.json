@@ -1,0 +1,53 @@
+[
+    {
+        "id": "cafeteria-centro",
+
+        "nome": "Cafeteria Centro",
+
+        "categoria": "Cafeteria",
+
+        "descricao": "Cafés especiais, doces e ambiente acolhedor no centro da cidade.",
+
+        "capa": "img/comercios/cafeteria-centro.jpg",
+
+        "endereco": "Rua Exemplo, 100",
+
+        "horario": "08:00 às 18:00",
+
+        "telefone": "",
+
+        "instagram": "https://instagram.com/",
+
+        "latitude": 0,
+
+        "longitude": 0,
+
+        "link": "#"
+    },
+
+    {
+        "id": "pousada-serra",
+
+        "nome": "Pousada Serra",
+
+        "categoria": "Pousada",
+
+        "descricao": "Hospedagem confortável próxima aos principais atrativos turísticos.",
+
+        "capa": "img/comercios/pousada-serra.jpg",
+
+        "endereco": "Rua Exemplo, 200",
+
+        "horario": "24 horas",
+
+        "telefone": "",
+
+        "instagram": "https://instagram.com/",
+
+        "latitude": 0,
+
+        "longitude": 0,
+
+        "link": "#"
+    }
+]
