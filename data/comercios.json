@@ -1,2 +1,35 @@
-[
-]
+{
+    "id": "cafe-exemplo",
+
+    "nome": "Café Exemplo",
+
+    "categoria": "Cafeteria",
+
+    "descricao": "Ambiente acolhedor com cafés especiais e doces artesanais.",
+
+    "endereco": "",
+
+    "horario": "",
+
+    "telefone": "",
+
+    "instagram": "",
+
+    "site": "",
+
+    "maps": "",
+
+    "latitude": 0,
+    "longitude": 0,
+
+    "x": null,
+    "y": null,
+
+    "capa": "./img/comercios/cafe-exemplo/capa.jpg",
+
+    "galeria": [
+        "./img/comercios/cafe-exemplo/1.jpg",
+        "./img/comercios/cafe-exemplo/2.jpg",
+        "./img/comercios/cafe-exemplo/3.jpg"
+    ]
+}
