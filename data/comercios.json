@@ -1,53 +1,28 @@
-[
-    {
-        "id": "cafeteria-centro",
+{
+    "id":"cafe-colonial",
 
-        "nome": "Cafeteria Centro",
+    "nome":"Café Colonial",
 
-        "categoria": "Cafeteria",
+    "categoria":"Cafeteria",
 
-        "descricao": "Cafés especiais, doces e ambiente acolhedor no centro da cidade.",
+    "descricao":"...",
 
-        "capa": "img/comercios/cafeteria-centro.jpg",
 
-        "endereco": "Rua Exemplo, 100",
+    "endereco":"...",
 
-        "horario": "08:00 às 18:00",
+    "horario":"08h às 19h",
 
-        "telefone": "",
+    "telefone":"",
 
-        "instagram": "https://instagram.com/",
+    "instagram":"",
 
-        "latitude": 0,
+    "site":"",
 
-        "longitude": 0,
+    "maps":"",
 
-        "link": "#"
-    },
+    "x":12345,
 
-    {
-        "id": "pousada-serra",
+    "y":67890,
 
-        "nome": "Pousada Serra",
-
-        "categoria": "Pousada",
-
-        "descricao": "Hospedagem confortável próxima aos principais atrativos turísticos.",
-
-        "capa": "img/comercios/pousada-serra.jpg",
-
-        "endereco": "Rua Exemplo, 200",
-
-        "horario": "24 horas",
-
-        "telefone": "",
-
-        "instagram": "https://instagram.com/",
-
-        "latitude": 0,
-
-        "longitude": 0,
-
-        "link": "#"
-    }
-]
+    "capa":"..."
+}
