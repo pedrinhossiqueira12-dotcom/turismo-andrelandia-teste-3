@@ -6,38 +6,99 @@ script.js
 */
 
 let locais = [];
+let comercios = [];
+let artistas = [];
+let eventos = [];
 
 const cardsContainer =
 document.getElementById("cardsContainer");
 
+const commerceCardsContainer =
+document.getElementById("commerceCardsContainer");
+
+const artistsContainer =
+document.getElementById("artistsContainer");
+
+const eventsContainer =
+document.getElementById("eventsContainer");
+
 const searchInput =
 document.getElementById("searchInput");
-
 /*
 =========================================================
 CARREGAR JSON
 =========================================================
 */
+function normalizarTexto(texto){
 
-async function carregarLocais(){
+    return (texto || "")
+
+        .normalize("NFD")
+
+        .replace(/[\u0300-\u036f]/g,"")
+
+        .toLowerCase()
+
+        .trim();
+
+}
+async function carregarDados(){
 
     try{
 
-        const resposta =
-        await fetch("data/locais.json");
+        const [
 
-        if(!resposta.ok){
+            respostaLocais,
 
-            throw new Error(
-                "Erro ao carregar locais."
-            );
+            respostaComercios,
+
+            respostaArtistas,
+
+            respostaEventos
+
+        ] = await Promise.all([
+
+            fetch("data/locais.json"),
+
+            fetch("data/comercios.json"),
+
+            fetch("data/artistas.json"),
+
+            fetch("data/eventos.json")
+
+        ]);
+
+        if(
+
+            !respostaLocais.ok ||
+
+            !respostaComercios.ok ||
+
+            !respostaArtistas.ok ||
+
+            !respostaEventos.ok
+
+        ){
+
+            throw new Error("Erro ao carregar os dados.");
 
         }
 
-        locais =
-        await resposta.json();
+        locais = await respostaLocais.json();
+
+        comercios = await respostaComercios.json();
+
+        artistas = await respostaArtistas.json();
+
+        eventos = await respostaEventos.json();
 
         criarCards(locais);
+
+        criarComercios(comercios);
+
+        criarArtistas(artistas);
+
+        criarEventos(eventos);
 
     }
 
@@ -50,7 +111,7 @@ async function carregarLocais(){
         `
         <div class="erro">
 
-            Não foi possível carregar os locais.
+            Não foi possível carregar os dados.
 
         </div>
         `;
@@ -137,7 +198,139 @@ function criarCards(lista){
     });
 
 }
+function criarComercios(lista){
 
+    if(!commerceCardsContainer) return;
+
+    commerceCardsContainer.innerHTML="";
+
+    lista.forEach(comercio=>{
+
+        const card=document.createElement("article");
+
+        card.className="card";
+
+        card.innerHTML=`
+
+            <img src="${comercio.capa}" alt="${comercio.nome}" loading="lazy">
+
+            <div class="card-content">
+
+                <span class="card-category">
+
+                    ${comercio.categoria}
+
+                </span>
+
+                <h3>${comercio.nome}</h3>
+
+                <p>${comercio.descricao}</p>
+
+                <a
+
+                    class="card-button"
+
+                    href="${comercio.link}">
+
+                    Conhecer
+
+                </a>
+
+            </div>
+
+        `;
+
+        commerceCardsContainer.appendChild(card);
+
+    });
+
+}
+function criarArtistas(lista){
+
+    if(!artistsContainer) return;
+
+    artistsContainer.innerHTML="";
+
+    lista.forEach(artista=>{
+
+        const card=document.createElement("article");
+
+        card.className="card";
+
+        card.innerHTML=`
+
+            <img src="${artista.imagem}" alt="${artista.nome}" loading="lazy">
+
+            <div class="card-content">
+
+                <span class="card-category">
+
+                    ${artista.categoria}
+
+                </span>
+
+                <h3>${artista.nome}</h3>
+
+                <p>${artista.descricao}</p>
+
+                <a
+
+                    class="card-button"
+
+                    href="${artista.instagram}"
+
+                    target="_blank">
+
+                    Instagram
+
+                </a>
+
+            </div>
+
+        `;
+
+        artistsContainer.appendChild(card);
+
+    });
+
+}
+function criarEventos(lista){
+
+    if(!eventsContainer) return;
+
+    eventsContainer.innerHTML="";
+
+    lista.forEach(evento=>{
+
+        const card=document.createElement("article");
+
+        card.className="card";
+
+        card.innerHTML=`
+
+            <img src="${evento.imagem}" alt="${evento.nome}" loading="lazy">
+
+            <div class="card-content">
+
+                <span class="card-category">
+
+                    Evento
+
+                </span>
+
+                <h3>${evento.nome}</h3>
+
+                <p>${evento.descricao}</p>
+
+            </div>
+
+        `;
+
+        eventsContainer.appendChild(card);
+
+    });
+
+}
 /*
 =========================================================
 PESQUISA EM TEMPO REAL
@@ -146,29 +339,37 @@ PESQUISA EM TEMPO REAL
 
 function pesquisarLocais(texto){
 
-    const termo = texto
-        .toLowerCase()
-        .trim();
+    const termo = normalizarTexto(texto);
 
-    const resultado = locais.filter(local =>
+const resultado = locais.filter(local=>{
 
-        local.nome
-            .toLowerCase()
-            .includes(termo)
+    return [
 
-        ||
+        local.nome,
 
-        local.categoria
-            .toLowerCase()
-            .includes(termo)
+        local.categoria,
 
-        ||
+        local.descricao,
 
-        local.descricao
-            .toLowerCase()
-            .includes(termo)
+        local.historia,
+
+        local.curiosidades,
+
+        local.destaque,
+
+        local.endereco
+
+    ]
+
+    .some(campo=>
+
+        normalizarTexto(campo)
+
+        .includes(termo)
 
     );
+
+});
 
     criarCards(resultado);
 
@@ -212,7 +413,7 @@ document.addEventListener(
 
     ()=>{
 
-        carregarLocais();
+        carregarDados();
 
     }
 
