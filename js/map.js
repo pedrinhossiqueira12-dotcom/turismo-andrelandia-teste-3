@@ -345,23 +345,23 @@ function obterIcone(categoria) {
         case "Histórico":
         case "Estação":
         case "Mirante":    
-            arquivo = "casarao.png";
+            arquivo = "marker-vermelho.png";
             break;      
        
         case "Natureza":
-            arquivo = "cachoeira.png";
+            arquivo = "marker-verde.png";
             break;
 
         case "Cafeteria":
-            arquivo = "cafe.png";
+            arquivo = "marker-marrom.png";
             break;
 
         case "Restaurante":
-            arquivo = "lanche.png";
+            arquivo = "marker-amarelo.png";
             break;
             
         case "esporte":
-            arquivo = "esporte.png";
+            arquivo = "marker-azul.png";
             break;
 
     }
