@@ -53,7 +53,7 @@
 
 <body>
 
-<header class="hero">
+<header id="inicio" class="hero">
 
     <div class="hero-overlay">
 
@@ -67,6 +67,8 @@
 
 <ul class="menu">
 
+    <li><a href="#inicio">Início</a></li>
+    
     <li><a href="#locais">Turismo</a></li>
 
     <li><a href="#comercios">Comércio</a></li>
@@ -99,13 +101,19 @@
                 inesquecíveis.
 
             </p>
+            <div class="hero-info">
+
+    O guia oficial para explorar o patrimônio histórico,
+    a gastronomia, a cultura e os talentos de Andrelândia.
+                
+            </div>
 
             <div class="search-box">
 
                 <input
                     type="text"
                     id="searchInput"
-                    placeholder="Pesquisar um ponto turístico...">
+                    placeholder="Pesquise locais, comércios, artistas ou eventos..."
 
             </div>
 
@@ -197,8 +205,9 @@ class="section">
 
     </div>
 
-    <div
-        id="map">
+   <div 
+       id="map" 
+       aria-label="Mapa interativo de Andrelândia">
 
     </div>
 
@@ -259,6 +268,8 @@ class="section">
 
 </section>
     
+</main>   
+    
 <footer class="footer">
 
     <div class="footer-content">
@@ -268,8 +279,7 @@ class="section">
         </h3>
 
         <p>
-            Explore os principais pontos turísticos da cidade através de um
-            mapa interativo, informações históricas e galerias de imagens.
+            Explore os atrativos turísticos, os comércios locais, os artistas e os eventos de Andrelândia em um único lugar.
         </p>
 
         <p class="copyright">
