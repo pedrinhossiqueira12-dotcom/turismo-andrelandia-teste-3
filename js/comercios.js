@@ -95,14 +95,13 @@ function criarCardsComercios(lista){
 
                 </p>
 
-                <a
-                class="card-button"
-                href="${comercio.instagram}"
-                target="_blank">
-
-                    Conhecer
-
-                </a>
+              <a
+              class="card-button"
+              href="pages/comercio.html?id=${comercio.id}">
+              
+              Conhecer
+              
+              </a>
 
             </div>
 
