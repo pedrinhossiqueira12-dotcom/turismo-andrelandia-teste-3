@@ -1,37 +1,19 @@
-[
-    {
-        "id": "artista-01",
+{
+    "id":"joao",
 
-        "nome": "Nome do Artista",
+    "nome":"João da Silva",
 
-        "categoria": "Artesanato",
+    "categoria":"Artesanato",
 
-        "descricao": "Pequena descrição do trabalho desenvolvido pelo artista.",
+    "descricao":"Esculturas em madeira.",
 
-        "imagem": "img/artistas/artista-01.jpg",
+    "instagram":"",
 
-        "instagram": "https://instagram.com/",
+    "whatsapp":"",
 
-        "telefone": "",
+    "telefone":"",
 
-        "email": ""
-    },
+    "site":"",
 
-    {
-        "id": "artista-02",
-
-        "nome": "Nome do Artista",
-
-        "categoria": "Pintura",
-
-        "descricao": "Pequena descrição do trabalho desenvolvido.",
-
-        "imagem": "img/artistas/artista-02.jpg",
-
-        "instagram": "https://instagram.com/",
-
-        "telefone": "",
-
-        "email": ""
-    }
-]
+    "foto":"..."
+}
