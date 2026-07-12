@@ -1,1 +1,210 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
 
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Guia Turístico de Andrelândia</title>
+
+    <meta name="description"
+          content="Informações completas sobre o ponto turístico.">
+
+    <link rel="stylesheet"
+          href="../css/local.css">
+
+    <link rel="stylesheet"
+          href="https://unpkg.com/leaflet/dist/leaflet.css">
+
+</head>
+
+<body>
+
+<header class="local-header">
+
+    <div class="header-image">
+
+        <img
+            id="capa"
+            src=""
+            alt="Imagem do local">
+
+    </div>
+
+</header>
+
+<main class="container">
+
+    <section class="local-info">
+
+        <span
+            id="categoria"
+            class="categoria">
+        </span>
+
+        <h1 id="nome">
+        </h1>
+
+        <p
+            id="descricao"
+            class="descricao">
+        </p>
+
+    </section>
+
+    <section class="bloco">
+      
+      <h2>
+        Sobre
+      </h2>
+      
+      <p id="sobre"></p>
+
+    </section>
+
+
+    <section class="informacoes">
+<div class="info-card">
+
+    <h3>
+        Horário
+    </h3>
+
+    <p id="horario"></p>
+
+</div>
+
+<div
+    class="info-card"
+    id="telefoneCard">
+
+    <h3>
+        Telefone
+    </h3>
+
+    <p id="telefone"></p>
+
+</div>
+
+<div class="info-card">
+
+    <h3>
+        Endereço
+    </h3>
+
+    <p id="endereco"></p>
+
+</div>
+
+    </section>
+
+    <section class="galeria">
+
+        <h2>
+
+            Galeria
+
+        </h2>
+
+        <div
+            id="galeria"
+            class="galeria-grid">
+
+        </div>
+
+    </section>
+  
+    <section class="bloco">
+
+        <h2>
+
+            Localização
+
+        </h2>
+
+        <div id="map"></div>
+
+    </section>
+
+<section class="acoes">
+
+    <a
+        id="btnComoChegar"
+        class="btn primary"
+        href="#"
+        target="_blank"
+        rel="noopener">
+
+        📍 Como chegar
+
+    </a>
+
+    <a
+        id="btnSite"
+        class="btn secondary"
+        href="#"
+        target="_blank"
+        rel="noopener">
+
+        🌐 Site
+
+    </a>
+
+    <a
+        id="btnInstagram"
+        class="btn secondary"
+        href="#"
+        target="_blank"
+        rel="noopener">
+
+        📷 Instagram
+
+    </a>
+
+    <a
+        id="btnVerMapa"
+        class="btn secondary"
+        href="../index.html#mapa">
+
+        🗺️ Ver no mapa
+
+    </a>
+
+    <button
+        id="btnVoltar"
+        class="btn outline"
+        type="button">
+
+        ← Voltar
+
+    </button>
+
+</section>
+</main>
+
+<footer class="footer">
+
+    <p>
+
+        © 2026 Guia Turístico de Andrelândia
+
+    </p>
+
+</footer>
+
+<script
+src="https://unpkg.com/leaflet/dist/leaflet.js">
+</script>
+
+<script
+src="../js/gallery.js">
+</script>
+
+<script src="../js/comercio.js"></script>
+  
+</body>
+
+</html>
