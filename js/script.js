@@ -2,18 +2,24 @@
 =========================================================
 GUIA TURÍSTICO DE ANDRELÂNDIA
 script.js
+Versão 2.0
+=========================================================
+*/
+
+/*
+=========================================================
+VARIÁVEIS
 =========================================================
 */
 
 let locais = [];
-let comercios = [];
-let artistas = [];
-let eventos = [];
+
+let locaisFiltrados = [];
 
 const cardsContainer =
 document.getElementById("cardsContainer");
 
-const commerceCardsContainer =
+const commerceContainer =
 document.getElementById("commerceCardsContainer");
 
 const artistsContainer =
@@ -24,14 +30,17 @@ document.getElementById("eventsContainer");
 
 const searchInput =
 document.getElementById("searchInput");
+
 /*
 =========================================================
-CARREGAR JSON
+NORMALIZAR TEXTO
+Remove acentos e converte para minúsculas.
 =========================================================
 */
+
 function normalizarTexto(texto){
 
-    return (texto || "")
+    return texto
 
         .normalize("NFD")
 
@@ -42,63 +51,54 @@ function normalizarTexto(texto){
         .trim();
 
 }
-async function carregarDados(){
+
+/*
+=========================================================
+CARREGAR LOCAIS
+=========================================================
+*/
+
+async function carregarLocais(){
 
     try{
 
-        const [
+        const resposta =
+        await fetch("data/locais.json");
 
-            respostaLocais,
+        if(!resposta.ok){
 
-            respostaComercios,
-
-            respostaArtistas,
-
-            respostaEventos
-
-        ] = await Promise.all([
-
-            fetch("data/locais.json"),
-
-            fetch("data/comercios.json"),
-
-            fetch("data/artistas.json"),
-
-            fetch("data/eventos.json")
-
-        ]);
-
-        if(
-
-            !respostaLocais.ok ||
-
-            !respostaComercios.ok ||
-
-            !respostaArtistas.ok ||
-
-            !respostaEventos.ok
-
-        ){
-
-            throw new Error("Erro ao carregar os dados.");
+            throw new Error(
+                "Erro ao carregar locais."
+            );
 
         }
 
-        locais = await respostaLocais.json();
+        locais =
+        await resposta.json();
 
-        comercios = await respostaComercios.json();
+        locaisFiltrados =
+        [...locais];
 
-        artistas = await respostaArtistas.json();
+        renderizarCards(locaisFiltrados);
 
-        eventos = await respostaEventos.json();
+        /*
+        Atualiza o mapa caso ele já tenha sido criado.
+        */
 
-        criarCards(locais);
+        if(
 
-        criarComercios(comercios);
+            typeof atualizarMarcadores ===
+            "function"
 
-        criarArtistas(artistas);
+        ){
 
-        criarEventos(eventos);
+            atualizarMarcadores(
+
+                locaisFiltrados
+
+            );
+
+        }
 
     }
 
@@ -111,7 +111,7 @@ async function carregarDados(){
         `
         <div class="erro">
 
-            Não foi possível carregar os dados.
+            Não foi possível carregar os locais.
 
         </div>
         `;
@@ -122,11 +122,68 @@ async function carregarDados(){
 
 /*
 =========================================================
-CRIAR CARDS
+CRIAR CARD
 =========================================================
 */
 
-function criarCards(lista){
+function criarCard(local){
+
+    const card =
+    document.createElement("article");
+
+    card.className =
+    "card";
+
+    card.innerHTML =
+
+    `
+    <img
+        src="${local.capa}"
+        alt="${local.nome}"
+        loading="lazy">
+
+    <div class="card-content">
+
+        <span class="card-category">
+
+            ${local.categoria}
+
+        </span>
+
+        <h3>
+
+            ${local.nome}
+
+        </h3>
+
+        <p>
+
+            ${local.descricao}
+
+        </p>
+
+        <a
+            class="card-button"
+            href="pages/local.html?id=${local.id}">
+
+            Conhecer
+
+        </a>
+
+    </div>
+    `;
+
+    return card;
+
+}
+
+/*
+=========================================================
+RENDERIZAR CARDS
+=========================================================
+*/
+
+function renderizarCards(lista){
 
     cardsContainer.innerHTML = "";
 
@@ -137,10 +194,21 @@ function criarCards(lista){
         `
         <div class="erro">
 
-            Nenhum local encontrado.
+            Nenhum resultado encontrado.
 
         </div>
         `;
+
+        if(
+
+            typeof atualizarMarcadores ===
+            "function"
+
+        ){
+
+            atualizarMarcadores([]);
+
+        }
 
         return;
 
@@ -148,192 +216,29 @@ function criarCards(lista){
 
     lista.forEach(local=>{
 
-        const card =
-        document.createElement("article");
+        cardsContainer.appendChild(
 
-        card.className =
-        "card";
+            criarCard(local)
 
-        card.innerHTML =
-
-        `
-        <img
-            src="${local.capa}"
-            alt="${local.nome}"
-            loading="lazy">
-
-        <div class="card-content">
-
-            <span class="card-category">
-
-                ${local.categoria}
-
-            </span>
-
-            <h3>
-
-                ${local.nome}
-
-            </h3>
-
-            <p>
-
-                ${local.descricao}
-
-            </p>
-
-            <a
-                class="card-button"
-                href="pages/local.html?id=${local.id}">
-
-                Conhecer
-
-            </a>
-
-        </div>
-        `;
-
-        cardsContainer.appendChild(card);
+        );
 
     });
 
-}
-function criarComercios(lista){
+    if(
 
-    if(!commerceCardsContainer) return;
+        typeof atualizarMarcadores ===
+        "function"
 
-    commerceCardsContainer.innerHTML="";
+    ){
 
-    lista.forEach(comercio=>{
+        atualizarMarcadores(lista);
 
-        const card=document.createElement("article");
-
-        card.className="card";
-
-        card.innerHTML=`
-
-            <img src="${comercio.capa}" alt="${comercio.nome}" loading="lazy">
-
-            <div class="card-content">
-
-                <span class="card-category">
-
-                    ${comercio.categoria}
-
-                </span>
-
-                <h3>${comercio.nome}</h3>
-
-                <p>${comercio.descricao}</p>
-
-                <a
-
-                    class="card-button"
-
-                    href="${comercio.link}">
-
-                    Conhecer
-
-                </a>
-
-            </div>
-
-        `;
-
-        commerceCardsContainer.appendChild(card);
-
-    });
-
-}
-function criarArtistas(lista){
-
-    if(!artistsContainer) return;
-
-    artistsContainer.innerHTML="";
-
-    lista.forEach(artista=>{
-
-        const card=document.createElement("article");
-
-        card.className="card";
-
-        card.innerHTML=`
-
-            <img src="${artista.imagem}" alt="${artista.nome}" loading="lazy">
-
-            <div class="card-content">
-
-                <span class="card-category">
-
-                    ${artista.categoria}
-
-                </span>
-
-                <h3>${artista.nome}</h3>
-
-                <p>${artista.descricao}</p>
-
-                <a
-
-                    class="card-button"
-
-                    href="${artista.instagram}"
-
-                    target="_blank">
-
-                    Instagram
-
-                </a>
-
-            </div>
-
-        `;
-
-        artistsContainer.appendChild(card);
-
-    });
-
-}
-function criarEventos(lista){
-
-    if(!eventsContainer) return;
-
-    eventsContainer.innerHTML="";
-
-    lista.forEach(evento=>{
-
-        const card=document.createElement("article");
-
-        card.className="card";
-
-        card.innerHTML=`
-
-            <img src="${evento.imagem}" alt="${evento.nome}" loading="lazy">
-
-            <div class="card-content">
-
-                <span class="card-category">
-
-                    Evento
-
-                </span>
-
-                <h3>${evento.nome}</h3>
-
-                <p>${evento.descricao}</p>
-
-            </div>
-
-        `;
-
-        eventsContainer.appendChild(card);
-
-    });
+    }
 
 }
 /*
 =========================================================
-PESQUISA EM TEMPO REAL
+PESQUISA
 =========================================================
 */
 
@@ -341,43 +246,200 @@ function pesquisarLocais(texto){
 
     const termo = normalizarTexto(texto);
 
-const resultado = locais.filter(local=>{
+    if(termo === ""){
 
-    return [
+        locaisFiltrados = [...locais];
 
-        local.nome,
+        renderizarCards(locaisFiltrados);
 
-        local.categoria,
+        return;
 
-        local.descricao,
+    }
 
-        local.historia,
+    locaisFiltrados = locais.filter(local=>{
 
-        local.curiosidades,
+        const nome =
+        normalizarTexto(local.nome);
 
-        local.destaque,
+        const categoria =
+        normalizarTexto(local.categoria);
 
-        local.endereco
+        const descricao =
+        normalizarTexto(local.descricao);
 
-    ]
+        return(
 
-    .some(campo=>
+            nome.includes(termo)
 
-        normalizarTexto(campo)
+            ||
 
-        .includes(termo)
+            categoria.includes(termo)
 
-    );
+            ||
 
-});
+            descricao.includes(termo)
 
-    criarCards(resultado);
+        );
+
+    });
+
+    renderizarCards(locaisFiltrados);
 
 }
 
 /*
 =========================================================
-EVENTO DO CAMPO DE PESQUISA
+CARREGAR COMÉRCIOS
+=========================================================
+*/
+
+async function carregarComercios(){
+
+    if(!commerceContainer){
+
+        return;
+
+    }
+
+    try{
+
+        const resposta =
+        await fetch("data/comercios.json");
+
+        if(!resposta.ok){
+
+            return;
+
+        }
+
+        const comercios =
+        await resposta.json();
+
+        commerceContainer.innerHTML = "";
+
+        comercios.forEach(comercio=>{
+
+            commerceContainer.appendChild(
+
+                criarCard(comercio)
+
+            );
+
+        });
+
+    }
+
+    catch(erro){
+
+        console.error(erro);
+
+    }
+
+}
+
+/*
+=========================================================
+CARREGAR ARTISTAS
+=========================================================
+*/
+
+async function carregarArtistas(){
+
+    if(!artistsContainer){
+
+        return;
+
+    }
+
+    try{
+
+        const resposta =
+        await fetch("data/artistas.json");
+
+        if(!resposta.ok){
+
+            return;
+
+        }
+
+        const artistas =
+        await resposta.json();
+
+        artistsContainer.innerHTML = "";
+
+        artistas.forEach(artista=>{
+
+            artistsContainer.appendChild(
+
+                criarCard(artista)
+
+            );
+
+        });
+
+    }
+
+    catch(erro){
+
+        console.error(erro);
+
+    }
+
+}
+
+/*
+=========================================================
+CARREGAR EVENTOS
+=========================================================
+*/
+
+async function carregarEventos(){
+
+    if(!eventsContainer){
+
+        return;
+
+    }
+
+    try{
+
+        const resposta =
+        await fetch("data/eventos.json");
+
+        if(!resposta.ok){
+
+            return;
+
+        }
+
+        const eventos =
+        await resposta.json();
+
+        eventsContainer.innerHTML = "";
+
+        eventos.forEach(evento=>{
+
+            eventsContainer.appendChild(
+
+                criarCard(evento)
+
+            );
+
+        });
+
+    }
+
+    catch(erro){
+
+        console.error(erro);
+
+    }
+
+}
+
+/*
+=========================================================
+EVENTOS
 =========================================================
 */
 
@@ -387,7 +449,7 @@ if(searchInput){
 
         "input",
 
-        (evento)=>{
+        function(evento){
 
             pesquisarLocais(
 
@@ -411,9 +473,15 @@ document.addEventListener(
 
     "DOMContentLoaded",
 
-    ()=>{
+    async function(){
 
-        carregarDados();
+        await carregarLocais();
+
+        await carregarComercios();
+
+        await carregarArtistas();
+
+        await carregarEventos();
 
     }
 
