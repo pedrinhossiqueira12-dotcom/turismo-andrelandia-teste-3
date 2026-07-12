@@ -1,0 +1,33 @@
+[
+    {
+        "id": "evento-01",
+
+        "nome": "Nome do Evento",
+
+        "descricao": "Breve descrição do evento.",
+
+        "categoria": "Festival",
+
+        "imagem": "img/eventos/evento-01.jpg",
+
+        "data": "01/01/2027",
+
+        "local": "Praça Central"
+    },
+
+    {
+        "id": "evento-02",
+
+        "nome": "Nome do Evento",
+
+        "descricao": "Breve descrição do evento.",
+
+        "categoria": "Feira",
+
+        "imagem": "img/eventos/evento-02.jpg",
+
+        "data": "15/03/2027",
+
+        "local": "Centro Cultural"
+    }
+]
