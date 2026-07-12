@@ -343,29 +343,44 @@ function obterIcone(categoria) {
 
        
         case "Histórico":
-        case "Mirante":    
-            arquivo = "marker-vermelho.png";
-            break;      
+        case "Estação":
+            arquivo = "casarao.png";
+            break;
+
+       case "Igreja":  
+            arquivo = "igreja.png";
+            break;
+        
+        case "Igreja ":  
+            arquivo = "igreja2.png";
+            break;
+            
        
         case "Natureza":
-            arquivo = "marker-verde.png";
+            arquivo = "cachoeira.png";
+            break;
+
+        case "Mirante":
+            arquivo = "cristo.png";
             break;
 
         case "Cafeteria":
-            arquivo = "marker-marrom.png";
+            arquivo = "cafe.png";
             break;
 
         case "Restaurante":
-            arquivo = "marker-laranja.png";
+            arquivo = "lanche.png";
+            break;
+
+        case "Pedra":
+            arquivo = "Pedra.png";
             break;
             
         case "esporte":
-            arquivo = "marker-azul.png";
+            arquivo = "esporte.png";
             break;
-        
-        case "Igreja":  
-            arquivo = "marker-amarelo.png";
-            break;
+
+
 
     }
 
