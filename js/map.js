@@ -341,9 +341,8 @@ function obterIcone(categoria) {
 
     switch (categoria) {
 
-        case "Igreja":  
+       
         case "Histórico":
-        case "Estação":
         case "Mirante":    
             arquivo = "marker-vermelho.png";
             break;      
@@ -357,11 +356,15 @@ function obterIcone(categoria) {
             break;
 
         case "Restaurante":
-            arquivo = "marker-amarelo.png";
+            arquivo = "marker-laranja.png";
             break;
             
         case "esporte":
             arquivo = "marker-azul.png";
+            break;
+        
+        case "Igreja":  
+            arquivo = "marker-amarelo.png";
             break;
 
     }
