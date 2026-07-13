@@ -142,9 +142,7 @@ function criarCard(local){
     card.className =
     "card";
 
-    card.innerHTML =
-
-    `
+    card.innerHTML = `
     <img
         src="${local.capa}"
         alt="${local.nome}"
@@ -153,21 +151,15 @@ function criarCard(local){
     <div class="card-content">
 
         <span class="card-category">
-
             ${local.categoria}
-
         </span>
 
         <h3>
-
             ${local.nome}
-
         </h3>
 
         <p>
-
             ${local.descricao}
-
         </p>
 
         <a
@@ -179,7 +171,7 @@ function criarCard(local){
         </a>
 
     </div>
-    `;
+`;
 
     return card;
 
