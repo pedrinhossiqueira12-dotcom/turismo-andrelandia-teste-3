@@ -171,9 +171,9 @@ function criarCard(local){
 
 <a>
 
-            Conhecer
+Conhecer
 
-        </a>
+</a>
 
     </div>
     `;
