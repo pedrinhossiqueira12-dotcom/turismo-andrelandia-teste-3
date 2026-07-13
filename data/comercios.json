@@ -1,5 +1,38 @@
 [
     {
+        "id": "docecomamor",
+
+        "nome": "DOCE COM AMOR ️ Cafeteria & Doceria",
+
+        "categoria": "Cafeteria",
+
+        "descricao": "Venha tomar cafe",
+
+        "sobre": "Cafés Especiais Cafés Expressos Cappuccinos, Chocolate Quente Sucos Naturais Doces Caseiros Brownies Minas Quente Misto Quente Fondue de Frutas Pinga da Roça Biscoitos de São Tiago Mg Cafés Unique Goiabada São Lourenço Café Coado na Hora Café moído na hora",
+
+        "horario": "Segunda a sábado • 08:00 às 18:00",
+
+        "telefone": "(35) 99999-9999",
+
+        "endereco": "Rua Exemplo, 100 - Centro",
+
+        "instagram": "https://www.instagram.com/docecomamormg?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==",
+
+        "site": "",
+
+        "latitude": -21.740000,
+
+        "longitude": -44.309000,
+
+        "capa": "./img/comercios/nome-do-comercio/capa.jpg",
+
+        "galeria":[
+            "./img/comercios/nome-do-comercio/1.jpg",
+            "./img/comercios/nome-do-comercio/2.jpg",
+            "./img/comercios/nome-do-comercio/3.jpg"
+        ]
+    }
+        {
         "id": "nome-do-comercio",
 
         "nome": "Nome do Comércio",
