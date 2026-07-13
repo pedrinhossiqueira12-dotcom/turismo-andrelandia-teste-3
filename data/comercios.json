@@ -37,44 +37,6 @@
             "./img/comercios/docecomamor/capa.jpg",
              "./img/comercios/docecomamor/capa.jpg",
         ]
-    },
-        {
-        "id": "nome-do-comercio",
-            
-        "tipo": "comercio",
-
-        "nome": "Nome do Comércio",
-
-        "categoria": "Cafeteria",
-
-        "descricao": "Breve descrição do estabelecimento.",
-
-        "sobre": "Texto mais completo contando sobre o comércio.",
-
-        "horario": "Segunda a sábado • 08:00 às 18:00",
-
-        "telefone": "(35) 99999-9999",
-
-        "endereco": "Rua Exemplo, 100 - Centro",
-
-        "instagram": "https://instagram.com/",
-
-        "site": "",
-        
-        "x": 0,
-        
-        "y": 0,
-            
-        "latitude": -21.740000,
-
-        "longitude": -44.309000,
-
-        "capa": "./img/comercios/nome-do-comercio/capa.jpeg",
-
-        "galeria":[
-            "./img/comercios/nome-do-comercio/1.jpg",
-            "./img/comercios/nome-do-comercio/2.jpg",
-            "./img/comercios/nome-do-comercio/3.jpg"
-        ]
     }
 ]
+    
