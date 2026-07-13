@@ -128,6 +128,14 @@ CRIAR CARD
 
 function criarCard(local){
 
+    const pagina =
+
+        local.tipo === "comercio"
+
+        ? "comercio.html"
+
+        : "local.html";
+
     const card =
     document.createElement("article");
 
@@ -162,18 +170,13 @@ function criarCard(local){
 
         </p>
 
+        <a
             class="card-button"
-            href="pages/${
-    local.tipo === "comercio"
-        ? "comercio.html"
-        : "local.html"
-}?id=${local.id}"
+            href="pages/${pagina}?id=${local.id}">
 
-<a>
+            Conhecer
 
-Conhecer
-
-</a>
+        </a>
 
     </div>
     `;
@@ -181,7 +184,6 @@ Conhecer
     return card;
 
 }
-
 /*
 =========================================================
 RENDERIZAR CARDS
