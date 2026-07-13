@@ -127,14 +127,27 @@ CRIAR CARD
 */
 
 function criarCard(local){
+function criarCard(local){
 
-    const pagina =
+    let link = `pages/local.html?id=${local.id}`;
 
-        local.tipo === "comercio"
+    if(local.tipo === "comercio"){
 
-        ? "comercio.html"
+        link = `pages/comercio.html?id=${local.id}`;
 
-        : "local.html";
+    }
+
+    else if(local.tipo === "artista"){
+
+        link = local.instagram;
+
+    }
+
+    else if(local.tipo ==="evento"){
+
+        link = `pages/evento.html?id=${local.id}`;
+
+    }
 
     const card =
     document.createElement("article");
@@ -143,6 +156,7 @@ function criarCard(local){
     "card";
 
     card.innerHTML = `
+    
     <img
         src="${local.capa}"
         alt="${local.nome}"
@@ -163,12 +177,13 @@ function criarCard(local){
         </p>
 
         <a
-            class="card-button"
-            href="pages/${pagina}?id=${local.id}">
+    class="card-button"
+    href="${link}"
+    ${local.tipo === "artista" ? 'target="_blank" rel="noopener"' : ""}>
 
-            Conhecer
-
-        </a>
+    Conhecer
+    
+    </a>
 
     </div>
 `;
