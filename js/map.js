@@ -87,7 +87,23 @@ VARIÁVEIS
 
 let mapa = null;
 
-let camadaMarcadores = null;
+/*
+Todos os marcadores carregados
+*/
+
+let todosMarcadores = [];
+
+/*
+Camadas por categoria
+*/
+
+const camadas = {};
+
+/*
+Lista completa de locais e comércios
+*/
+
+let todosLocais = [];
 /*
 ====================================================
 INICIALIZAR MAPA
@@ -164,16 +180,6 @@ function inicializarMapa() {
 
     mapa.setMaxBounds(AREA_NAVEGACAO);
 
-    /*
-    ====================================================
-    CAMADA DOS MARCADORES
-    ====================================================
-    */
-
-    camadaMarcadores = L.layerGroup();
-
-    camadaMarcadores.addTo(mapa);
-
 }
 /*
 ====================================================
@@ -185,17 +191,57 @@ async function carregarMarcadores() {
 
     try {
 
-        const resposta = await fetch("data/locais.json");
+        const [
 
-        if (!resposta.ok) {
+            respostaLocais,
 
-            throw new Error("Erro ao carregar locais.");
+            respostaComercios
+
+        ] = await Promise.all([
+
+            fetch("data/locais.json"),
+
+            fetch("data/comercios.json")
+
+        ]);
+
+        if (
+
+            !respostaLocais.ok ||
+
+            !respostaComercios.ok
+
+        ) {
+
+            throw new Error(
+
+                "Erro ao carregar os arquivos JSON."
+
+            );
 
         }
 
-        const locais = await resposta.json();
+        const locais =
 
-        criarMarcadores(locais);
+            await respostaLocais.json();
+
+        const comercios =
+
+            await respostaComercios.json();
+
+        /*
+        Junta tudo em um único vetor
+        */
+
+        todosLocais = [
+
+            ...locais,
+
+            ...comercios
+
+        ];
+
+        criarMarcadores(todosLocais);
 
     }
 
@@ -206,7 +252,6 @@ async function carregarMarcadores() {
     }
 
 }
-
 /*
 ====================================================
 CRIAR MARCADORES
@@ -215,25 +260,57 @@ CRIAR MARCADORES
 
 function criarMarcadores(locais) {
 
-    camadaMarcadores.clearLayers();
+    /*
+    Limpa todas as camadas antigas
+    */
+
+    Object.values(camadas).forEach(camada => {
+
+        mapa.removeLayer(camada);
+
+    });
+
+    todosMarcadores = [];
+
+    /*
+    Cria os marcadores
+    */
 
     locais.forEach(local => {
 
         /*
-        Ignora locais sem coordenadas.
+        Ignora registros sem coordenadas
         */
 
         if (
 
             local.x == null ||
 
-            local.y == null
+            local.y == null ||
+
+            local.x === 0 ||
+
+            local.y === 0
 
         ) {
 
             return;
 
         }
+
+        /*
+        Cria a camada da categoria caso não exista
+        */
+
+        if (!camadas[local.categoria]) {
+
+            camadas[local.categoria] = L.layerGroup();
+
+        }
+
+        /*
+        Marcador
+        */
 
         const marcador = L.marker(
 
@@ -269,12 +346,27 @@ function criarMarcadores(locais) {
 
         );
 
-        marcador.addTo(camadaMarcadores);
+        marcador.addTo(
+
+            camadas[local.categoria]
+
+        );
+
+        todosMarcadores.push(marcador);
+
+    });
+
+    /*
+    Adiciona todas as categorias ao mapa
+    */
+
+    Object.values(camadas).forEach(camada => {
+
+        camada.addTo(mapa);
 
     });
 
 }
-
 /*
 ====================================================
 POPUP
@@ -282,6 +374,14 @@ POPUP
 */
 
 function criarPopup(local) {
+
+    const pagina =
+
+        local.tipo === "comercio"
+
+        ? "comercio.html"
+
+        : "local.html";
 
     return `
 
@@ -311,7 +411,7 @@ function criarPopup(local) {
 
             class="popup-link"
 
-            href="pages/local.html?id=${local.id}">
+            href="pages/${pagina}?id=${local.id}">
 
             Conhecer
 
@@ -322,13 +422,6 @@ function criarPopup(local) {
     `;
 
 }
-
-/*
-====================================================
-ÍCONES
-====================================================
-*/
-
 /*
 ====================================================
 ÍCONES
@@ -393,6 +486,75 @@ function obterIcone(categoria) {
         iconAnchor: [19, 50],
 
         popupAnchor: [0, -45]
+
+    });
+
+}
+/*
+====================================================
+FILTROS
+====================================================
+*/
+
+function inicializarFiltros() {
+
+    const filtros =
+
+        document.querySelectorAll(
+
+            ".map-filter"
+
+        );
+
+    filtros.forEach(filtro => {
+
+        filtro.addEventListener(
+
+            "change",
+
+            function() {
+
+                const categoria =
+
+                    this.value;
+
+                if (
+
+                    !camadas[categoria]
+
+                ) {
+
+                    return;
+
+                }
+
+                if (
+
+                    this.checked
+
+                ) {
+
+                    mapa.addLayer(
+
+                        camadas[categoria]
+
+                    );
+
+                }
+
+                else {
+
+                    mapa.removeLayer(
+
+                        camadas[categoria]
+
+                    );
+
+                }
+
+            }
+
+        );
 
     });
 
@@ -550,6 +712,8 @@ document.addEventListener(
         inicializarMapa();
 
         await carregarMarcadores();
+
+        inicializarFiltros();
 
         habilitarModoEdicao();
 
