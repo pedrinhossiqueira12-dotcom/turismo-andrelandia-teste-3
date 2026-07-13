@@ -696,7 +696,68 @@ window.addEventListener(
     }
 
 );
+/*
+====================================================
+ATUALIZAR MARCADORES
+Usado pela pesquisa do site
+====================================================
+*/
 
+function atualizarMarcadores(lista) {
+
+    /*
+    Remove todas as camadas
+    */
+
+    Object.values(camadas).forEach(camada => {
+
+        mapa.removeLayer(camada);
+
+    });
+
+    /*
+    Limpa todas as camadas
+    */
+
+    Object.values(camadas).forEach(camada => {
+
+        camada.clearLayers();
+
+    });
+
+    /*
+    Cria novamente somente os itens da pesquisa
+    */
+
+    criarMarcadores(lista);
+
+    /*
+    Respeita os filtros marcados
+    */
+
+    document
+        .querySelectorAll(".map-filter")
+        .forEach(filtro => {
+
+            if (
+
+                !filtro.checked &&
+
+                camadas[filtro.value]
+
+            ) {
+
+                mapa.removeLayer(
+
+                    camadas[filtro.value]
+
+                );
+
+            }
+
+        });
+
+}
 /*
 ====================================================
 INICIALIZAÇÃO
