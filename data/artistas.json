@@ -1,15 +1,31 @@
 [
     {
-        "id":"artista-exemplo",
+        "id": "artista-exemplo",
 
-        "nome":"Nome do Artista",
+        "tipo": "artista",
 
-        "categoria":"Artesanato",
+        "nome": "Nome do Artista",
 
-        "descricao":"Breve descrição do trabalho realizado.",
+        "categoria": "Artesanato",
 
-        "instagram":"https://instagram.com/",
+        "descricao": "Breve descrição do trabalho realizado.",
 
-        "capa":"./img/artistas/artista-exemplo/capa.jpg"
+        "sobre": "Texto completo contando a história do artista, técnicas utilizadas, trajetória e outras informações.",
+
+        "telefone": "(35) 99999-9999",
+
+        "instagram": "https://instagram.com/",
+
+        "site": "",
+
+        "endereco": "Andrelândia - MG",
+
+        "capa": "./img/artistas/artista-exemplo/capa.jpg",
+
+        "galeria": [
+            "./img/artistas/artista-exemplo/1.jpg",
+            "./img/artistas/artista-exemplo/2.jpg",
+            "./img/artistas/artista-exemplo/3.jpg"
+        ]
     }
 ]
