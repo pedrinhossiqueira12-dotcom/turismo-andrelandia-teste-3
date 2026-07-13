@@ -2,6 +2,8 @@
     {
         "id": "docecomamor",
 
+        "tipo": "comercio",
+
         "nome": "DOCE COM AMOR ️ Cafeteria & Doceria",
 
         "categoria": "Cafeteria",
@@ -38,6 +40,8 @@
     }
         {
         "id": "nome-do-comercio",
+            
+        "tipo": "comercio",
 
         "nome": "Nome do Comércio",
 
