@@ -1,19 +1,15 @@
-{
-    "id":"festival",
+[
+    {
+        "id":"festival-exemplo",
 
-    "nome":"Festival Gastronômico",
+        "nome":"Festival Exemplo",
 
-    "descricao":"...",
+        "categoria":"Festival",
 
-    "data":"12 a 15 Julho",
+        "descricao":"Descrição do evento.",
 
-    "local":"Praça Central",
+        "data":"15 de Agosto de 2026",
 
-    "horario":"18h",
-
-    "instagram":"",
-
-    "site":"",
-
-    "banner":"..."
-}
+        "capa":"./img/eventos/festival-exemplo/capa.jpg"
+    }
+]
