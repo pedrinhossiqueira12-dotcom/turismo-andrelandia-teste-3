@@ -749,3 +749,56 @@ body{
     background:#faf8f3;
 
 }
+/* =====================================================
+FILTROS DO MAPA
+===================================================== */
+
+.map-filters{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    justify-content:center;
+
+    gap:14px;
+
+    margin-bottom:25px;
+
+}
+
+.map-filters label{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    background:white;
+
+    padding:10px 16px;
+
+    border-radius:10px;
+
+    cursor:pointer;
+
+    box-shadow:0 4px 12px rgba(0,0,0,.08);
+
+    user-select:none;
+
+    transition:.25s;
+
+}
+
+.map-filters label:hover{
+
+    transform:translateY(-2px);
+
+}
+
+.map-filters input{
+
+    cursor:pointer;
+
+}
