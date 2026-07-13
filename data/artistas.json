@@ -1,19 +1,15 @@
-{
-    "id":"joao",
+[
+    {
+        "id":"artista-exemplo",
 
-    "nome":"João da Silva",
+        "nome":"Nome do Artista",
 
-    "categoria":"Artesanato",
+        "categoria":"Artesanato",
 
-    "descricao":"Esculturas em madeira.",
+        "descricao":"Breve descrição do trabalho realizado.",
 
-    "instagram":"",
+        "instagram":"https://instagram.com/",
 
-    "whatsapp":"",
-
-    "telefone":"",
-
-    "site":"",
-
-    "foto":"..."
-}
+        "capa":"./img/artistas/artista-exemplo/capa.jpg"
+    }
+]
