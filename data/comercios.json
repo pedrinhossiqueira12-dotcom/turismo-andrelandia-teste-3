@@ -1,35 +1,35 @@
-{
-    "id": "cafe-exemplo",
+[
+    {
+        "id": "nome-do-comercio",
 
-    "nome": "Café Exemplo",
+        "nome": "Nome do Comércio",
 
-    "categoria": "Cafeteria",
+        "categoria": "Cafeteria",
 
-    "descricao": "Ambiente acolhedor com cafés especiais e doces artesanais.",
+        "descricao": "Breve descrição do estabelecimento.",
 
-    "endereco": "",
+        "sobre": "Texto mais completo contando sobre o comércio.",
 
-    "horario": "",
+        "horario": "Segunda a sábado • 08:00 às 18:00",
 
-    "telefone": "",
+        "telefone": "(35) 99999-9999",
 
-    "instagram": "",
+        "endereco": "Rua Exemplo, 100 - Centro",
 
-    "site": "",
+        "instagram": "https://instagram.com/",
 
-    "maps": "",
+        "site": "",
 
-    "latitude": 0,
-    "longitude": 0,
+        "latitude": -21.740000,
 
-    "x": null,
-    "y": null,
+        "longitude": -44.309000,
 
-    "capa": "./img/comercios/cafe-exemplo/capa.jpg",
+        "capa": "./img/comercios/nome-do-comercio/capa.jpg",
 
-    "galeria": [
-        "./img/comercios/cafe-exemplo/1.jpg",
-        "./img/comercios/cafe-exemplo/2.jpg",
-        "./img/comercios/cafe-exemplo/3.jpg"
-    ]
-}
+        "galeria":[
+            "./img/comercios/nome-do-comercio/1.jpg",
+            "./img/comercios/nome-do-comercio/2.jpg",
+            "./img/comercios/nome-do-comercio/3.jpg"
+        ]
+    }
+]
