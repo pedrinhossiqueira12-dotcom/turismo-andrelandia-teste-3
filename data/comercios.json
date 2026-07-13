@@ -30,12 +30,12 @@
 
         "longitude": -44.309000,
 
-        "capa": "./img/comercios/nome-do-comercio/capa.jpg",
+        "capa": "./img/comercios/docecomamor/capa.jpg",
 
         "galeria":[
-            "./img/comercios/nome-do-comercio/1.jpg",
-            "./img/comercios/nome-do-comercio/2.jpg",
-            "./img/comercios/nome-do-comercio/3.jpg"
+            "./img/comercios/docecomamor/capa.jpg",
+            "./img/comercios/docecomamor/capa.jpg",
+             "./img/comercios/docecomamor/capa.jpg",
         ]
     },
         {
