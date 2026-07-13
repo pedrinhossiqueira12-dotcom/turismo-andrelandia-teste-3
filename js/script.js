@@ -164,7 +164,11 @@ function criarCard(local){
 
         <a
             class="card-button"
-            href="pages/local.html?id=${local.id}">
+            href="pages/${
+    local.tipo === "comercio"
+        ? "comercio.html"
+        : "local.html"
+}?id=${local.id}"
 
             Conhecer
 
