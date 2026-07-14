@@ -2,7 +2,7 @@
 =========================================================
 GUIA TURÍSTICO DE ANDRELÂNDIA
 script.js
-Versão 2.0
+Versão 3.0
 =========================================================
 */
 
@@ -13,7 +13,6 @@ VARIÁVEIS
 */
 
 let locais = [];
-
 let locaisFiltrados = [];
 
 const cardsContainer =
@@ -34,7 +33,6 @@ document.getElementById("searchInput");
 /*
 =========================================================
 NORMALIZAR TEXTO
-Remove acentos e converte para minúsculas.
 =========================================================
 */
 
@@ -49,6 +47,36 @@ function normalizarTexto(texto){
         .toLowerCase()
 
         .trim();
+
+}
+
+/*
+=========================================================
+CRIAR LINK DO BOTÃO
+=========================================================
+*/
+
+function obterLink(local){
+
+    switch(local.tipo){
+
+        case "comercio":
+
+            return `pages/comercio.html?id=${local.id}`;
+
+        case "artista":
+
+            return local.instagram || "";
+
+        case "evento":
+
+            return local.instagram || "";
+
+        default:
+
+            return `pages/local.html?id=${local.id}`;
+
+    }
 
 }
 
@@ -81,10 +109,6 @@ async function carregarLocais(){
 
         renderizarCards(locaisFiltrados);
 
-        /*
-        Atualiza o mapa caso ele já tenha sido criado.
-        */
-
         if(
 
             typeof atualizarMarcadores ===
@@ -106,20 +130,24 @@ async function carregarLocais(){
 
         console.error(erro);
 
-        cardsContainer.innerHTML =
+        if(cardsContainer){
 
-        `
-        <div class="erro">
+            cardsContainer.innerHTML =
 
-            Não foi possível carregar os locais.
+            `
+            <div class="erro">
 
-        </div>
-        `;
+                Não foi possível carregar os locais.
+
+            </div>
+            `;
+
+        }
 
     }
 
+    
 }
-
 /*
 =========================================================
 CRIAR CARD
@@ -128,34 +156,40 @@ CRIAR CARD
 
 function criarCard(local){
 
-    let link = `pages/local.html?id=${local.id}`;
+    const card = document.createElement("article");
 
-    if(local.tipo === "comercio"){
+    card.className = "card";
 
-        link = `pages/comercio.html?id=${local.id}`;
+    const link = obterLink(local);
+
+    let botao = "";
+
+    if(link){
+
+        const novaAba =
+
+            local.tipo === "artista" ||
+
+            local.tipo === "evento";
+
+        botao =
+
+        `
+        <a
+            class="card-button"
+            href="${link}"
+            ${novaAba ? 'target="_blank" rel="noopener"' : ""}>
+
+            Conhecer
+
+        </a>
+        `;
 
     }
 
-    else if(local.tipo === "artista"){
+    card.innerHTML =
 
-        link = local.instagram;
-
-    }
-
-    else if(local.tipo ==="evento"){
-
-        link = `pages/evento.html?id=${local.id}`;
-
-    }
-
-    const card =
-    document.createElement("article");
-
-    card.className =
-    "card";
-
-    card.innerHTML = `
-    
+    `
     <img
         src="${local.capa}"
         alt="${local.nome}"
@@ -164,28 +198,27 @@ function criarCard(local){
     <div class="card-content">
 
         <span class="card-category">
+
             ${local.categoria}
+
         </span>
 
         <h3>
+
             ${local.nome}
+
         </h3>
 
         <p>
+
             ${local.descricao}
+
         </p>
 
-        <a
-    class="card-button"
-    href="${link}"
-    ${local.tipo === "artista" ? 'target="_blank" rel="noopener"' : ""}>
-
-    Conhecer
-    
-    </a>
+        ${botao}
 
     </div>
-`;
+    `;
 
     return card;
 
@@ -197,6 +230,12 @@ RENDERIZAR CARDS
 */
 
 function renderizarCards(lista){
+
+    if(!cardsContainer){
+
+        return;
+
+    }
 
     cardsContainer.innerHTML = "";
 
@@ -249,9 +288,10 @@ function renderizarCards(lista){
     }
 
 }
+
 /*
 =========================================================
-PESQUISA
+PESQUISAR LOCAIS
 =========================================================
 */
 
@@ -271,32 +311,82 @@ function pesquisarLocais(texto){
 
     locaisFiltrados = locais.filter(local=>{
 
-        const nome =
-        normalizarTexto(local.nome);
-
-        const categoria =
-        normalizarTexto(local.categoria);
-
-        const descricao =
-        normalizarTexto(local.descricao);
-
         return(
 
-            nome.includes(termo)
+            normalizarTexto(local.nome)
+
+                .includes(termo)
 
             ||
 
-            categoria.includes(termo)
+            normalizarTexto(local.categoria)
+
+                .includes(termo)
 
             ||
 
-            descricao.includes(termo)
+            normalizarTexto(local.descricao)
+
+                .includes(termo)
 
         );
 
     });
 
     renderizarCards(locaisFiltrados);
+
+}
+/*
+=========================================================
+CARREGAR LISTA
+=========================================================
+*/
+
+async function carregarLista(arquivo, container){
+
+    if(!container){
+
+        return;
+
+    }
+
+    try{
+
+        const resposta =
+
+            await fetch(arquivo);
+
+        if(!resposta.ok){
+
+            container.innerHTML = "";
+
+            return;
+
+        }
+
+        const lista =
+
+            await resposta.json();
+
+        container.innerHTML = "";
+
+        lista.forEach(item=>{
+
+            container.appendChild(
+
+                criarCard(item)
+
+            );
+
+        });
+
+    }
+
+    catch(erro){
+
+        console.error(erro);
+
+    }
 
 }
 
@@ -308,45 +398,13 @@ CARREGAR COMÉRCIOS
 
 async function carregarComercios(){
 
-    if(!commerceContainer){
+    await carregarLista(
 
-        return;
+        "data/comercios.json",
 
-    }
+        commerceContainer
 
-    try{
-
-        const resposta =
-        await fetch("data/comercios.json");
-
-        if(!resposta.ok){
-
-            return;
-
-        }
-
-        const comercios =
-        await resposta.json();
-
-        commerceContainer.innerHTML = "";
-
-        comercios.forEach(comercio=>{
-
-            commerceContainer.appendChild(
-
-                criarCard(comercio)
-
-            );
-
-        });
-
-    }
-
-    catch(erro){
-
-        console.error(erro);
-
-    }
+    );
 
 }
 
@@ -358,45 +416,13 @@ CARREGAR ARTISTAS
 
 async function carregarArtistas(){
 
-    if(!artistsContainer){
+    await carregarLista(
 
-        return;
+        "data/artistas.json",
 
-    }
+        artistsContainer
 
-    try{
-
-        const resposta =
-        await fetch("data/artistas.json");
-
-        if(!resposta.ok){
-
-            return;
-
-        }
-
-        const artistas =
-        await resposta.json();
-
-        artistsContainer.innerHTML = "";
-
-        artistas.forEach(artista=>{
-
-            artistsContainer.appendChild(
-
-                criarCard(artista)
-
-            );
-
-        });
-
-    }
-
-    catch(erro){
-
-        console.error(erro);
-
-    }
+    );
 
 }
 
@@ -408,69 +434,11 @@ CARREGAR EVENTOS
 
 async function carregarEventos(){
 
-    if(!eventsContainer){
+    await carregarLista(
 
-        return;
+        "data/eventos.json",
 
-    }
-
-    try{
-
-        const resposta =
-        await fetch("data/eventos.json");
-
-        if(!resposta.ok){
-
-            return;
-
-        }
-
-        const eventos =
-        await resposta.json();
-
-        eventsContainer.innerHTML = "";
-
-        eventos.forEach(evento=>{
-
-            eventsContainer.appendChild(
-
-                criarCard(evento)
-
-            );
-
-        });
-
-    }
-
-    catch(erro){
-
-        console.error(erro);
-
-    }
-
-}
-
-/*
-=========================================================
-EVENTOS
-=========================================================
-*/
-
-if(searchInput){
-
-    searchInput.addEventListener(
-
-        "input",
-
-        function(evento){
-
-            pesquisarLocais(
-
-                evento.target.value
-
-            );
-
-        }
+        eventsContainer
 
     );
 
@@ -481,17 +449,15 @@ NAVBAR INTELIGENTE
 =========================================================
 */
 
+const navbar = document.querySelector(".navbar");
+
 let ultimoScroll = 0;
 
 window.addEventListener(
 
     "scroll",
 
-    function(){
-
-        const navbar =
-
-            document.querySelector(".navbar");
+    ()=>{
 
         if(!navbar){
 
@@ -499,9 +465,7 @@ window.addEventListener(
 
         }
 
-        const scrollAtual =
-
-            window.pageYOffset;
+        const scrollAtual = window.pageYOffset;
 
         /*
         Sempre visível no topo
@@ -518,17 +482,25 @@ window.addEventListener(
         }
 
         /*
-        Rolando para baixo
+        Esconde ao descer
         */
 
-        if(scrollAtual > ultimoScroll){
+        if(
+
+            scrollAtual > ultimoScroll
+
+            &&
+
+            scrollAtual > 120
+
+        ){
 
             navbar.classList.add("oculta");
 
         }
 
         /*
-        Rolando para cima
+        Mostra ao subir
         */
 
         else{
@@ -544,6 +516,65 @@ window.addEventListener(
 );
 /*
 =========================================================
+MENU HAMBÚRGUER
+=========================================================
+*/
+
+const menuToggle =
+
+    document.getElementById("menuToggle");
+
+const menu =
+
+    document.getElementById("menu");
+
+if(menuToggle && menu){
+
+    menuToggle.addEventListener(
+
+        "click",
+
+        ()=>{
+
+            menu.classList.toggle("ativo");
+
+            menuToggle.textContent =
+
+                menu.classList.contains("ativo")
+
+                ? "✕"
+
+                : "☰";
+
+        }
+
+    );
+
+    document.querySelectorAll(
+
+        ".menu a"
+
+    ).forEach(link=>{
+
+        link.addEventListener(
+
+            "click",
+
+            ()=>{
+
+                menu.classList.remove("ativo");
+
+                menuToggle.textContent = "☰";
+
+            }
+
+        );
+
+    });
+
+}
+/*
+=========================================================
 INICIALIZAÇÃO
 =========================================================
 */
@@ -552,7 +583,7 @@ document.addEventListener(
 
     "DOMContentLoaded",
 
-    async function(){
+    async ()=>{
 
         await carregarLocais();
 
@@ -565,66 +596,3 @@ document.addEventListener(
     }
 
 );
-/*
-=========================================================
-MENU HAMBÚRGUER
-=========================================================
-*/
-
-const menuToggle = document.getElementById("menuToggle");
-const menu = document.getElementById("menu");
-
-if(menuToggle){
-
-    menuToggle.addEventListener("click",()=>{
-
-        menu.classList.toggle("ativo");
-
-        menuToggle.textContent =
-            menu.classList.contains("ativo")
-            ? "✕"
-            : "☰";
-
-    });
-
-    document.querySelectorAll(".menu a").forEach(link=>{
-
-        link.addEventListener("click",()=>{
-
-            menu.classList.remove("ativo");
-
-            menuToggle.textContent="☰";
-
-        });
-
-    });
-
-}
-
-/*
-=========================================================
-ESCONDER NAVBAR AO DESCER
-=========================================================
-*/
-
-const navbar = document.querySelector(".navbar");
-
-let ultimoScroll = 0;
-
-window.addEventListener("scroll",()=>{
-
-    const atual = window.pageYOffset;
-
-    if(atual > ultimoScroll && atual > 120){
-
-        navbar.classList.add("oculta");
-
-    }else{
-
-        navbar.classList.remove("oculta");
-
-    }
-
-    ultimoScroll = atual;
-
-});
