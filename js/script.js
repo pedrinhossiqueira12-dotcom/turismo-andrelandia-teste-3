@@ -475,7 +475,73 @@ if(searchInput){
     );
 
 }
+/*
+=========================================================
+NAVBAR INTELIGENTE
+=========================================================
+*/
 
+let ultimoScroll = 0;
+
+window.addEventListener(
+
+    "scroll",
+
+    function(){
+
+        const navbar =
+
+            document.querySelector(".navbar");
+
+        if(!navbar){
+
+            return;
+
+        }
+
+        const scrollAtual =
+
+            window.pageYOffset;
+
+        /*
+        Sempre visível no topo
+        */
+
+        if(scrollAtual <= 20){
+
+            navbar.classList.remove("oculta");
+
+            ultimoScroll = scrollAtual;
+
+            return;
+
+        }
+
+        /*
+        Rolando para baixo
+        */
+
+        if(scrollAtual > ultimoScroll){
+
+            navbar.classList.add("oculta");
+
+        }
+
+        /*
+        Rolando para cima
+        */
+
+        else{
+
+            navbar.classList.remove("oculta");
+
+        }
+
+        ultimoScroll = scrollAtual;
+
+    }
+
+);
 /*
 =========================================================
 INICIALIZAÇÃO
