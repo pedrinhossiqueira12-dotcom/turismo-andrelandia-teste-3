@@ -565,3 +565,66 @@ document.addEventListener(
     }
 
 );
+/*
+=========================================================
+MENU HAMBÚRGUER
+=========================================================
+*/
+
+const menuToggle = document.getElementById("menuToggle");
+const menu = document.getElementById("menu");
+
+if(menuToggle){
+
+    menuToggle.addEventListener("click",()=>{
+
+        menu.classList.toggle("ativo");
+
+        menuToggle.textContent =
+            menu.classList.contains("ativo")
+            ? "✕"
+            : "☰";
+
+    });
+
+    document.querySelectorAll(".menu a").forEach(link=>{
+
+        link.addEventListener("click",()=>{
+
+            menu.classList.remove("ativo");
+
+            menuToggle.textContent="☰";
+
+        });
+
+    });
+
+}
+
+/*
+=========================================================
+ESCONDER NAVBAR AO DESCER
+=========================================================
+*/
+
+const navbar = document.querySelector(".navbar");
+
+let ultimoScroll = 0;
+
+window.addEventListener("scroll",()=>{
+
+    const atual = window.pageYOffset;
+
+    if(atual > ultimoScroll && atual > 120){
+
+        navbar.classList.add("oculta");
+
+    }else{
+
+        navbar.classList.remove("oculta");
+
+    }
+
+    ultimoScroll = atual;
+
+});
