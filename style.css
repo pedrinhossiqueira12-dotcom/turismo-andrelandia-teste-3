@@ -113,8 +113,6 @@ NAVBAR
 
     transform: translateX(-50%);
 
-    width: fit-content;
-
     display: flex;
 
     justify-content: center;
@@ -122,8 +120,6 @@ NAVBAR
     align-items: center;
 
     padding: 12px 28px;
-
-    border-radius: 18px;
 
     background: rgba(20,20,20,.55);
 
@@ -133,6 +129,8 @@ NAVBAR
 
     border: 1px solid rgba(255,255,255,.12);
 
+    border-radius: 18px;
+
     box-shadow: 0 10px 30px rgba(0,0,0,.25);
 
     transition: transform .35s ease;
@@ -140,12 +138,6 @@ NAVBAR
     z-index: 9999;
 
 }
-
-/*
-=========================================================
-ESCONDER NAVBAR
-=========================================================
-*/
 
 .navbar.oculta{
 
@@ -163,11 +155,15 @@ MENU
 
     display: flex;
 
+    flex-direction: row;
+
+    flex-wrap: nowrap;
+
     justify-content: center;
 
     align-items: center;
 
-    gap: 32px;
+    gap: 24px;
 
     list-style: none;
 
@@ -175,17 +171,17 @@ MENU
 
     padding: 0;
 
-    flex: 1;
+}
+
+.menu li{
+
+    list-style: none;
 
 }
 
-/*
-=========================================================
-LINKS
-=========================================================
-*/
-
 .menu a{
+
+    display: block;
 
     color: #fff;
 
@@ -194,6 +190,8 @@ LINKS
     font-size: .92rem;
 
     font-weight: 500;
+
+    white-space: nowrap;
 
     transition: .25s;
 
@@ -204,7 +202,6 @@ LINKS
     opacity: .75;
 
 }
-
 .hero-content{
 
     flex:1;
