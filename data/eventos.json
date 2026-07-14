@@ -1,15 +1,17 @@
 [
     {
-        "id":"festival-exemplo",
+        "id": "festival-inverno",
 
-        "nome":"Festival Exemplo",
+        "tipo": "evento",
 
-        "categoria":"Festival",
+        "nome": "Festival de Inverno",
 
-        "descricao":"Descrição do evento.",
+        "categoria": "Evento",
 
-        "data":"15 de Agosto de 2026",
+        "descricao": "Principal festival cultural de Andrelândia.",
 
-        "capa":"./img/eventos/festival-exemplo/capa.jpg"
+        "link": "https://www.instagram.com",
+
+        "capa": "./img/eventos/festival-inverno/capa.jpg"
     }
 ]
