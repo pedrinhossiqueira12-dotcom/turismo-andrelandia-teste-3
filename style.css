@@ -70,7 +70,33 @@ body{
     flex-direction:column;
 
 }
+/*
+=========================================================
+LOGO
+=========================================================
+*/
 
+.site-logo{
+
+    position: fixed;
+
+    top: 18px;
+
+    left: 25px;
+
+    z-index: 10000;
+
+    color: #ffffff;
+
+    font-size: 1rem;
+
+    font-weight: 700;
+
+    letter-spacing: 1px;
+
+    text-shadow: 0 2px 8px rgba(0,0,0,.4);
+
+}
 /*
 =========================================================
 NAVBAR
@@ -87,21 +113,19 @@ NAVBAR
 
     transform: translateX(-50%);
 
-    width: calc(100% - 40px);
-
-    max-width: 1200px;
+    width: fit-content;
 
     display: flex;
 
-    justify-content: space-between;
+    justify-content: center;
 
     align-items: center;
 
-    padding: 14px 28px;
+    padding: 12px 28px;
 
     border-radius: 18px;
 
-    background: rgba(20, 20, 20, 0.55);
+    background: rgba(20,20,20,.55);
 
     backdrop-filter: blur(12px);
 
@@ -111,9 +135,7 @@ NAVBAR
 
     box-shadow: 0 10px 30px rgba(0,0,0,.25);
 
-    transition:
-        transform .35s ease,
-        background .35s ease;
+    transition: transform .35s ease;
 
     z-index: 9999;
 
@@ -128,24 +150,6 @@ ESCONDER NAVBAR
 .navbar.oculta{
 
     transform: translate(-50%, -140%);
-
-}
-
-/*
-=========================================================
-LOGO
-=========================================================
-*/
-
-.logo{
-
-    font-size: 1.2rem;
-
-    font-weight: 700;
-
-    color: #fff;
-
-    white-space: nowrap;
 
 }
 
@@ -184,9 +188,15 @@ LINKS
 .menu a{
 
     color: #fff;
+
     text-decoration: none;
+
+    font-size: .92rem;
+
     font-weight: 500;
+
     transition: .25s;
+
 }
 
 .menu a:hover{
