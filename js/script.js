@@ -127,7 +127,6 @@ CRIAR CARD
 */
 
 function criarCard(local){
-function criarCard(local){
 
     let link = `pages/local.html?id=${local.id}`;
 
