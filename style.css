@@ -71,63 +71,127 @@ body{
 
 }
 
+/*
+=========================================================
+NAVBAR
+=========================================================
+*/
+
 .navbar{
 
     position: fixed;
 
-    top: 0;
+    top: 15px;
 
-    left: 0;
+    left: 50%;
 
-    width: 100%;
+    transform: translateX(-50%);
+
+    width: calc(100% - 40px);
+
+    max-width: 1200px;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    padding: 14px 28px;
+
+    border-radius: 18px;
+
+    background: rgba(20, 20, 20, 0.55);
+
+    backdrop-filter: blur(12px);
+
+    -webkit-backdrop-filter: blur(12px);
+
+    border: 1px solid rgba(255,255,255,.12);
+
+    box-shadow: 0 10px 30px rgba(0,0,0,.25);
+
+    transition:
+        transform .35s ease,
+        background .35s ease;
 
     z-index: 9999;
 
-    transition: transform .35s ease;
-
 }
+
+/*
+=========================================================
+ESCONDER NAVBAR
+=========================================================
+*/
 
 .navbar.oculta{
 
-    transform: translateY(-110%);
+    transform: translate(-50%, -140%);
 
 }
+
+/*
+=========================================================
+LOGO
+=========================================================
+*/
 
 .logo{
 
-    color:white;
+    font-size: 1.2rem;
 
-    font-size:28px;
+    font-weight: 700;
 
-    font-weight:bold;
+    color: #fff;
+
+    white-space: nowrap;
 
 }
+
+/*
+=========================================================
+MENU
+=========================================================
+*/
 
 .menu{
 
-    display:flex;
+    display: flex;
 
-    list-style:none;
+    justify-content: center;
 
-    gap:30px;
+    align-items: center;
+
+    gap: 32px;
+
+    list-style: none;
+
+    margin: 0;
+
+    padding: 0;
+
+    flex: 1;
 
 }
 
+/*
+=========================================================
+LINKS
+=========================================================
+*/
+
 .menu a{
 
-    color:white;
-
-    text-decoration:none;
-
-    font-weight:600;
-
-    transition:.25s;
-
+    color: #fff;
+    text-decoration: none;
+    font-weight: 500;
+    transition: .25s;
 }
 
 .menu a:hover{
 
-    color:#38bdf8;
+    opacity: .75;
 
 }
 
